@@ -1,28 +1,28 @@
 <template>
-<div class="hue">
-  <div
-      class="hue-horizontal"
-      @mousedown="handleMouseDown"
-       @onTouchMove="handleChange"
-       @onTouchStart="handleChange">
-    <div class="pointer">
-      <div class="slider"></div>
+  <div class="hue">
+    <div
+        class="hue-horizontal"
+        @mousedown="handleMouseDown"
+        @onTouchMove="handleChange"
+        @onTouchStart="handleChange">
+      <div class="pointer">
+        <div class="slider"></div>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script setup lang="ts">
 import {onUnmounted} from "vue";
-import * as hue from "../helpers/hue.ts";
+import * as hue from "../utils/hue.ts";
 
 defineProps({
-  direction:{},
-  hsl:{},
-  container:{},
+  direction: {},
+  hsl: {},
+  container: {},
 })
 
-const emit =defineEmits(['change'])
+const emit = defineEmits(['change'])
 
 const handleMouseUp = () => {
   unbindEventListeners()
@@ -43,17 +43,15 @@ const handleChange = (e) => {
   change && emit("change", e)
 
 }
-onUnmounted(()=>{
+onUnmounted(() => {
   unbindEventListeners()
 })
 </script>
 
 <style scoped>
 .hue-horizontal {
-  background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0
-  33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
-  background: -webkit-linear-gradient(to right, #f00 0%, #ff0
-  17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+  background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+  background: -webkit-linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
 }
 
 .hue-vertical {
@@ -63,7 +61,7 @@ onUnmounted(()=>{
   #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
 }
 
-.slider{
+.slider {
   width: 18px;
   height: 18px;
   border-radius: 50%;
