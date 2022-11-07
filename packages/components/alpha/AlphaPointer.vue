@@ -1,25 +1,37 @@
 <template>
-<div class="picker" :style="{...style}"></div>
+  <div class="alpha-pointer" :style="styles"></div>
 </template>
 
 <script setup lang="ts">
 import {computed, ref} from "vue";
 
 const props = defineProps({
-  direction:{type:String, default:'horizontal'},
+  direction: {type: String, default: 'horizontal'},
+  color: {type: Object},
 })
 
-const style = computed(()=>{
-  if (props.direction === 'horizontal') {
-    return { transform: 'translate(-3px, -9px)'}
+
+const styles = computed(() => {
+  if (props.direction !== 'horizontal') {
+    return {
+      transform: 'translate(-3px, -9px)',
+      top: `${props?.color?.rgb.a * 100}%`
+    }
+  } else {
+    return {
+      left: `${props?.color?.rgb.a * 100}%`
+
+    }
   }
-  return ''
 })
 
 </script>
 
 <style scoped>
-.picker{
+.alpha-pointer {
+  cursor: pointer;
+  user-select: none;
+  position: absolute;
   width: 18px;
   height: 18px;
   border-radius: 50%;

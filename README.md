@@ -1,6 +1,8 @@
 # Vue 3 + TypeScript + Vite
 
 TODO:
+Alpha
+Hue
 
 1. v-model深层怎么处理最好
 2. 去除多余的方法

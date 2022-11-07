@@ -1,37 +1,38 @@
 <template>
   <div
       :style="{width:`${width}px`,height:`${height}px`,position:'relative'}"
-      :class="['alpha-picker',className]">
+      class="picker alpha-picker">
     <Alpha
-        :style="{radius:'2px',...style}"
-        :rgb="rgb"
-        :hsl="hsl"
+        radius="4px"
+        :color="color"
         :direction="direction"
         @change="change"
     >
-      <AlphaPointer/>
+      <AlphaPointer :direction="direction" :color="color"/>
     </Alpha>
   </div>
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
 import Alpha from "../../common/Alpha.vue"
 import AlphaPointer from "./AlphaPointer.vue"
+import {ColorFormats, ColorInput} from "tinycolor2";
+import {convertColor} from "../../utils/color";
+import {computed} from "vue";
 
-defineProps({
-  width:{type:Number, default:361},
-  height:{type:Number, default:16},
-  direction:{type:String, default:'horizontal'},
-  className:{type:String},
-  style:{type:Object},
-  rgb:{type:String},
-  hsl:{type:String},
-  modelValue:{}
+const props = defineProps({
+  width: {type: Number, default: 361},
+  height: {type: Number, default: 16},
+  direction: {type: String, default: 'horizontal'},
+  modelValue: {},
 })
 const emit = defineEmits(["update:modelValue"])
-const change = (data) => {
-  emit("update:modelValue",data)
+const color = computed(() => {
+  return convertColor(props.modelValue as ColorInput)
+})
+
+const change = (data: object) => {
+  emit("update:modelValue", data?.rgb ?? color)
 }
 </script>
 

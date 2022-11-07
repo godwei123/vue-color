@@ -20,7 +20,7 @@ import {ref, defineProps} from "vue";
 import EditableInput from "../../common/EditableInput.vue"
 import BlockSwatches from "./BlockSwatches.vue"
 import Checkboard from "../../common/Checkboard.vue"
-import * as color from "../../utils/color.js"
+import * as color from "../../utils/color"
 
 const props = defineProps({
   width: {

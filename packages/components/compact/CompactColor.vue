@@ -8,7 +8,7 @@
 <script setup lang="ts">
 
 import Swatch from "../../common/Swatch.vue";
-import * as colorUtils from '../../utils/color.js'
+import * as colorUtils from '../../utils/color'
 
 defineProps(['color', 'active'])
 const emit = defineEmits(['click'])

@@ -1,8 +1,9 @@
 <template>
   <div class="wrap">
-    <span draggable="true"
-          @dragstart="dragstart"
-          @drag="drag"
+    <span
+        @mouseup="up"
+        @mousemove="move"
+        @mousedown="down"
     >123</span>
     <input class="a"
            type="text" ref="input"
@@ -16,78 +17,36 @@ import {onMounted, ref} from "vue";
 const input = ref(null)
 const value = ref(5)
 
-const drag = (e) => {
+const flag = ref(false);
 
-  console.log("drag", e)
-}
-const dragstart = (e) => {
-
+const fn = (e) => {
   e.preventDefault()
-  e.dataTransfer.effectAllowed = "none"
-  console.log("dragstart", e)
-}
-
-const handleUp = (e) => {
-  console.log(e)
-  e.preventDefault();
-
   e.stopPropagation();
-  document.onmousemove = null
-  document.body.style.cursor = 'default'
-}
-const handleDown = (event) => {
-  //console.log(event)
-
-  document.body.style.cursor = 'ew-resize !important'
-  document.onmousemove = function (e) {
-    //console.log('onmousemove', e);
-    document.body.style.cursor = 'ew-resize !important'
-
-    value.value++
-    return false;
-
-  };
-  event.preventDefault();
-  event.stopPropagation();
-  return false
+  document.body.style.cursor = "ew-resize !important"
+  console.log(flag.value)
+  if (flag.value) {
+    console.log("111")
+  }
 }
 
-
-document.onmouseover = () => {
-  document.body.style.cursor = 'ew-resize !important'
+const up = () => {
+  flag.value = false
+  document.removeEventListener("mousemove", fn)
 }
-const handleMove = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+const move = () => {
+
+}
+
+document.addEventListener("mouseup", (e) => {
+  document.removeEventListener("mousemove", fn)
+})
+
+const down = () => {
+  flag.value = true
+  document.addEventListener("mousemove", fn)
 }
 
 
-function mouseDownAndMove(dom, callback) {
-  let flag = false;
-  let fn = function (e) {
-    if (flag) callback(e);
-  };
-  // 添加鼠标按下监听
-  dom.addEventListener("mousedown", function (even) {
-    // 当鼠标按下时, 添加鼠标移动监听
-    flag = true;
-    dom.addEventListener("mousemove", fn)
-  })
-
-  // 添加鼠标弹起监听 , 即鼠标不在按下
-  dom.addEventListener("mouseup", function () {
-    // 此时移除 鼠标移动监听,移除指定 事件函数
-    flag = false;
-    dom.removeEventListener("mousemove", fn);
-  })
-  // 当鼠标在其他元素中弹起时的操作, 规避鼠标弹起后 dom 无法捕获的异常
-  document.addEventListener("mouseup", function () {
-    // 此时移除 鼠标移动监听,移除指定 事件函数
-    flag = false;
-    dom.removeEventListener("mousemove", fn);
-  });
-
-}
 </script>
 
 <style scoped>

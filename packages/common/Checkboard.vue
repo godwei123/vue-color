@@ -1,26 +1,25 @@
 <template>
-  <div class="grid" :style="styles"></div>
+  <div class="checker-board" :style="styles"></div>
 </template>
 
 <script setup lang="ts">
 import {defineProps, computed} from "vue";
-import * as checkboard from "../utils/checkboard.js"
+import {get} from "../utils/checkboard"
 
 const props = defineProps({
   size: {type: Number, default: 8},
   white: {type: String, default: '#fff'},
-  grey: {type: String, default: 'rgba(0,0,0,.08)'},
+  grey: {type: String, default: '#e6e6e6'},
 })
 const styles = computed(() => {
   return {
-    background: `url(${checkboard.get(props.white, props.grey, props.size)}) center left`
+    background: `url(${get(props.white, props.grey, props.size)}) center left`
   }
 })
 </script>
 
 <style scoped>
-.grid {
-  border-radius: 6px 6px 0 0;
+.checker-board {
   position: absolute;
   top: 0;
   left: 0;
