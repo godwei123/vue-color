@@ -38,7 +38,7 @@ const handleChange = (e: Event) => {
   change && emit('change', change)
 }
 
-const {cancel, run} = useThrottle(handleChange, 300)
+const {cancel, run} = useThrottle(handleChange, 200)
 
 const alphaStyles = computed(() => {
   return {borderRadius: props.radius}

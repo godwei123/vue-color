@@ -19,11 +19,13 @@ const styles = computed(() => {
   if (props.direction !== 'horizontal') {
     return {
       transform: 'translate(-3px, -9px)',
-      top: `${props?.color?.rgb.a * 100}%`
+      top: `${props?.color?.rgb.a * 100}%`,
+      transition: 'top linear .1s'
     }
   } else {
     return {
-      left: `${props?.color?.rgb.a * 100}%`
+      left: `${props?.color?.rgb.a * 100}%`,
+      transition: "left linear .1s"
     }
   }
 })
@@ -41,5 +43,6 @@ const styles = computed(() => {
   transform: translate(-9px, -1px);
   background-color: rgb(248, 248, 248);
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+
 }
 </style>
