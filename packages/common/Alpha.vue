@@ -21,8 +21,16 @@ import {computed, onUnmounted, ref} from "vue";
 import {calculateChange} from "../utils/alpha"
 import Checkboard from "../common/Checkboard.vue"
 import {useThrottle} from "../hooks/useThrottle";
+import {ColorObject, Direction} from "../interface";
 
-const props = defineProps(['color', 'direction', 'radius', 'shadow'])
+interface Alpha {
+  color: ColorObject,
+  direction: Direction,
+  radius?: string,
+  shadow?: string
+}
+
+const props = defineProps<Alpha>()
 const emit = defineEmits(['change'])
 const container = ref()
 const handleChange = (e: Event) => {
@@ -52,6 +60,7 @@ const gradientStyles = computed(() => {
 onUnmounted(() => {
   unbindEventListeners()
 })
+
 const handleMouseDown = (e: Event) => {
   run(e)
   window.addEventListener('mousemove', handleChange)
@@ -60,6 +69,7 @@ const handleMouseDown = (e: Event) => {
 const handleMouseUp = () => {
   unbindEventListeners()
 }
+
 const unbindEventListeners = () => {
   window.removeEventListener('mousemove', handleChange)
   window.removeEventListener('mouseup', handleMouseUp)
@@ -90,17 +100,4 @@ const unbindEventListeners = () => {
   margin: 0 3px;
 }
 
-.pointer {
-  position: absolute;
-}
-
-.slider {
-  width: 4px;
-  border-radius: 1px;
-  height: 8px;
-  background: #fff;
-  margin-top: 1px;
-  transform: translateX(-2px);
-  box-shadow: 0 0 2px rgba(0, 0, 0, .6);
-}
 </style>

@@ -1,4 +1,5 @@
-import tinycolor, {ColorFormats, ColorInput, Instance} from 'tinycolor2'
+import tinycolor, {ColorFormats, ColorInput, ColorInputWithoutInstance, Instance} from 'tinycolor2'
+import {ColorFormat, ColorObject} from "../interface";
 
 // export const simpleCheckForValidColor = (data) => {
 //     const keysToCheck = ['r', 'g', 'b', 'a', 'h', 's', 'l', 'v']
@@ -77,7 +78,7 @@ import tinycolor, {ColorFormats, ColorInput, Instance} from 'tinycolor2'
 // }
 
 
-export const convertColor = (color: ColorInput) => {
+export const convertColor = (color: ColorInput): ColorObject => {
     const c = tinycolor(color)
     const t = tinycolor(c)
     if (!c.isValid()) {
@@ -98,5 +99,21 @@ export const convertColor = (color: ColorInput) => {
         hsvString: c.toHsvString(),
         rgbString: c.toRgbString(),
         percentageRgbString: c.toPercentageRgbString()
+    }
+}
+
+
+export const formatColor = (color: ColorObject, format: ColorFormat) => {
+    const c = tinycolor(color.origin);
+    if (format === 'rgb') {
+        return c.toRgb()
+    } else if (format === 'hex') {
+        return c.toHex()
+    } else if (format === 'hex8') {
+        return c.toHex8()
+    } else if (format === 'hsl') {
+        return c.toHsl()
+    } else if (format === 'hsv') {
+        return c.toHsv()
     }
 }

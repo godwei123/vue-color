@@ -1,6 +1,6 @@
 <template>
   <div
-      :style="{width:`${width}px`,height:`${height}px`,position:'relative'}"
+      :style="{width:`${width}px`,height:`${height}px`}"
       class="picker alpha-picker">
     <Alpha
         radius="4px"
@@ -16,26 +16,41 @@
 <script setup lang="ts">
 import Alpha from "../../common/Alpha.vue"
 import AlphaPointer from "./AlphaPointer.vue"
-import {ColorFormats, ColorInput} from "tinycolor2";
-import {convertColor} from "../../utils/color";
-import {computed} from "vue";
+import {ColorInput} from "tinycolor2";
+import {convertColor, formatColor} from "../../utils/color";
+import {computed, ComputedRef} from "vue";
+import {ColorFormat, ColorObject, Direction, Size} from "../../interface";
 
-const props = defineProps({
-  width: {type: Number, default: 361},
-  height: {type: Number, default: 16},
-  direction: {type: String, default: 'horizontal'},
-  modelValue: {},
+interface AlphaPropsType {
+  modelValue: ColorInput,
+  format?: ColorFormat,
+  direction?: Direction,
+  width?: number,
+  height?: number,
+  size?: Size
+}
+
+const props = withDefaults(defineProps<AlphaPropsType>(), {
+  width: 361,
+  height: 16,
+  direction: 'horizontal',
+  format: 'rgb',
+  size: 'default'
 })
+
 const emit = defineEmits(["update:modelValue"])
-const color = computed(() => {
-  return convertColor(props.modelValue as ColorInput)
+
+const color: ComputedRef<ColorObject> = computed(() => {
+  return convertColor(props.modelValue)
 })
 
-const change = (data: object) => {
-  emit("update:modelValue", data?.rgb ?? color)
+const change = (data: ColorObject) => {
+  emit("update:modelValue", formatColor(data, props.format))
 }
 </script>
 
 <style scoped>
-
+.alpha-picker {
+  position: relative;
+}
 </style>

@@ -3,13 +3,17 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {computed} from "vue";
+import {ColorObject, Direction} from "../../interface";
 
-const props = defineProps({
-  direction: {type: String, default: 'horizontal'},
-  color: {type: Object},
+interface AlphaPointer {
+  direction: Direction,
+  color: ColorObject
+}
+
+const props = withDefaults(defineProps<AlphaPointer>(), {
+  direction: "horizontal"
 })
-
 
 const styles = computed(() => {
   if (props.direction !== 'horizontal') {
@@ -20,7 +24,6 @@ const styles = computed(() => {
   } else {
     return {
       left: `${props?.color?.rgb.a * 100}%`
-
     }
   }
 })

@@ -1,7 +1,7 @@
 # Vue 3 + TypeScript + Vite
 
 TODO:
-Alpha
+Alpha:鼠标事件
 Hue
 
 1. v-model深层怎么处理最好
