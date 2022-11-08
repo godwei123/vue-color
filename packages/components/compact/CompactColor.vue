@@ -8,11 +8,11 @@
 <script setup lang="ts">
 import Swatch from "../../common/Swatch.vue";
 import {getContrastingColor} from '../../utils/color'
-import {ColorObject} from "../../interface";
+import {ColorInput} from "tinycolor2";
 
 defineProps(['color', 'active'])
 const emit = defineEmits(['click'])
-const onClick = (color: ColorObject) => {
+const onClick = (color: ColorInput) => {
   emit('click', color);
 }
 </script>
@@ -23,9 +23,6 @@ const onClick = (color: ColorObject) => {
   height: 15px;
   position: relative;
   cursor: pointer;
-  float: left;
-  margin-bottom: 5px;
-  margin-right: 5px;
 }
 
 .dot {

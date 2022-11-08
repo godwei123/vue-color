@@ -9,6 +9,7 @@
         :circle-size="size"
         :circle-spacing="circleSpacing"
         @click="change"/>
+
   </div>
 </template>
 

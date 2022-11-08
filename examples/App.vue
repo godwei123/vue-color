@@ -32,7 +32,7 @@ watch(value, () => {
         <CirclePicker v-model="value" style="margin: 20px;"/>
       </div>
       <div>
-        <!--        <CompactPicker v-model="value" size="default" style="margin: 20px;"/>-->
+        <CompactPicker v-model="value" style="margin: 20px;"/>
       </div>
     </div>
   </div>

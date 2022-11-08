@@ -1,12 +1,15 @@
 <template>
   <Raised style="height: fit-content;">
     <div class="compact compact-picker">
-      <CompactColor
-          v-for="c in colors"
-          :key="c"
-          :color="c"
-          :active="colorEquals(color,c)"
-          @click="change"/>
+      <div class="compact-color-wrap">
+        <CompactColor
+            v-for="c in colors"
+            :key="c"
+            :color="c"
+            :active="colorEquals(color,c)"
+            @click="change"/>
+      </div>
+      <CompactFields/>
     </div>
   </Raised>
 </template>
@@ -18,6 +21,7 @@ import {ColorInput} from "tinycolor2";
 import {ColorFormat, ColorObject} from "../../interface";
 import {computed, ComputedRef} from "vue";
 import {convertColor, formatColor, colorEquals} from "../../utils/color";
+import CompactFields from "./CompactFields.vue";
 
 interface CompactPropsType {
   modelValue: ColorInput
@@ -47,10 +51,17 @@ const change = (data: ColorObject | string) => {
 
 <style scoped>
 .compact {
-  padding-top: 5px;
-  padding-left: 5px;
+  padding: 10px 10px 0;
   box-sizing: inherit;
   width: 240px;
   height: fit-content;
+}
+
+.compact-color-wrap {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 15px);
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
 }
 </style>

@@ -3,40 +3,36 @@
     <span class="input-label" v-if="label">{{ label }}</span>
     <div class="input-hash" v-if="hash">#</div>
     <input
-        :class="['color-input',border?'':'box-shadow-none']"
+        :class="['color-input']"
         type="text"
         :placeholder="placeholder"
         :value="color"
         @keyup.enter="onBlur"
         @blur="onBlur"
         :style="styles"
+        :maxlength="maxlength"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import {defineProps, defineEmits, computed} from "vue";
+import {defineProps, defineEmits, computed, CSSProperties} from "vue";
 
 interface EditInputPropsType {
   placeholder?: string,
   label?: string,
   hash?: boolean,
-  border?: boolean,
   color: string,
-  radius?: string
+  radius?: string,
+  styles?: CSSProperties
+  maxlength?: number
 }
 
 const props = withDefaults(defineProps<EditInputPropsType>(), {
   hash: false,
-  border: false
 })
 const emit = defineEmits(['change']);
 
-const styles = computed(() => {
-  return {
-    borderRadius: props.radius
-  }
-})
 const onBlur = (e: Event) => {
   emit('change', (e.target as HTMLInputElement).value)
 }
@@ -52,9 +48,6 @@ const onBlur = (e: Event) => {
 
 }
 
-.box-shadow-none {
-  box-shadow: none;
-}
 
 .input-label {
   padding: 5px;

@@ -53,10 +53,15 @@ import {ColorFormat, ColorObject} from "../interface";
 //     return hex.length !== (4 + lh) && hex.length < (7 + lh) && tinycolor(hex).isValid()
 // }
 //
-export const getContrastingColor = (data: ColorObject) => {
+export const getContrastingColor = (data: ColorObject | ColorInput) => {
+    if (!(data as ColorObject)?.origin) {
+        data = convertColor(data as ColorInput)
+    }
+    data = <ColorObject>data;
     if (!data) {
         return '#fff'
     }
+
     if (data.hex === 'transparent') {
         return 'rgba(0,0,0,0.4)'
     }
