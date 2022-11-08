@@ -3,12 +3,10 @@ import {ref, watch} from "vue";
 import AlphaPicker from "../packages/components/alpha/AlphaPicker.vue";
 import HuePicker from "../packages/components/hue/HuePicker.vue";
 import BlockPicker from "../packages/components/block/BlockPicker.vue";
-// import TwitterPicker from "../packages/components/twitter/TwitterPicker.vue";
-// import GithubPicker from "../packages/components/github/GithubPicker.vue";
-// import CirclePicker from "../packages/components/circle/CirclePicker.vue";
-// import CompactPicker from "../packages/components/compact/CompactPicker.vue";
-// import EditableInput from "../packages/common/EditableInput.vue";
-// import SInput from "./components/SInput.vue";
+import TwitterPicker from "../packages/components/twitter/TwitterPicker.vue";
+import CirclePicker from "../packages/components/circle/CirclePicker.vue";
+import CompactPicker from "../packages/components/compact/CompactPicker.vue";
+
 
 const value = ref('#194d33')
 const colors = ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3',
@@ -26,34 +24,15 @@ watch(value, () => {
        style="display:flex;min-height: 100vh;justify-content: center;align-items: center;flex-direction: column;">
     <div :style="{width: '100px',height: '100px',background:value,marginBottom:'50px'}"></div>
 
-    <div style="display:flex;gap: 50px;flex-wrap: wrap;flex-direction: column">
-      <!--      <TwitterPicker v-model="value"/>-->
-      <!--      <GithubPicker v-model="value"/>-->
-      <!--      <CirclePicker v-model="value"/>-->
-      <!--      <CompactPicker v-model="value"/>-->
-      <!--      <EditableInput label="R"/>-->
-      <!--      <SInput/>-->
+    <div style="display:flex;flex-wrap: wrap;flex-direction: column">
       <div>
-        <AlphaPicker v-model="value" :width="252" round size="mini" style="margin: 20px;"/>
-        <AlphaPicker v-model="value" :width="252" size="small" style="margin: 20px;"/>
-        <AlphaPicker v-model="value" :width="252" size="default" style="margin: 20px;"/>
-        <AlphaPicker v-model="value" :width="252" size="middle" style="margin: 20px;"/>
-        <AlphaPicker v-model="value" :width="252" round size="large" style="margin: 20px;"/>
-      </div>
-
-      <div>
-        <HuePicker v-model="value" :width="316" size="mini" style="margin: 20px;"/>
-        <HuePicker v-model="value" :width="316" size="small" style="margin: 20px;"/>
-        <HuePicker v-model="value" format="hsl" :width="316" size="default" style="margin: 20px;"/>
-        <HuePicker v-model="value" :width="316" size="middle" style="margin: 20px;"/>
-        <HuePicker v-model="value" :width="316" size="large" style="margin: 20px;"/>
+        <TwitterPicker v-model="value" size="default" style="margin: 20px;"/>
       </div>
       <div>
-        <BlockPicker v-model="value" size="mini" style="margin: 20px;"/>
-        <BlockPicker v-model="value" size="small" style="margin: 20px;"/>
-        <BlockPicker v-model="value" size="default" style="margin: 20px;"/>
-        <BlockPicker v-model="value" size="middle" style="margin: 20px;"/>
-        <BlockPicker v-model="value" size="large" style="margin: 20px;"/>
+        <CirclePicker v-model="value" style="margin: 20px;"/>
+      </div>
+      <div>
+        <!--        <CompactPicker v-model="value" size="default" style="margin: 20px;"/>-->
       </div>
     </div>
   </div>

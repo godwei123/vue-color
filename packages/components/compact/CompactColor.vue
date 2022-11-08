@@ -1,18 +1,18 @@
 <template>
   <Swatch :class="['swatch',color==='#FFFFFF'?'color-fff':'']" :color="color" @click="onClick">
     <div :class="['dot',active?'active':'',color==='#FFFFFF'?'transparent':'',color==='transparent'?'':'',]"
-         :style="{background:colorUtils.getContrastingColor(color)}"/>
+         :style="{background:getContrastingColor(color)}"/>
   </Swatch>
 </template>
 
 <script setup lang="ts">
-
 import Swatch from "../../common/Swatch.vue";
-import * as colorUtils from '../../utils/color'
+import {getContrastingColor} from '../../utils/color'
+import {ColorObject} from "../../interface";
 
 defineProps(['color', 'active'])
 const emit = defineEmits(['click'])
-const onClick = (color) => {
+const onClick = (color: ColorObject) => {
   emit('click', color);
 }
 </script>

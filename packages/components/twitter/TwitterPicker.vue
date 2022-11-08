@@ -1,39 +1,46 @@
 <template>
-  <div class="card twitter-picker" :style="{width:width}">
+  <div class="picker twitter-picker" :style="{width:width}">
     <div class="triangle-shadow" :style="triangleShadowStyle"></div>
     <div class="triangle" :style="triangleStyle"></div>
     <div class="body">
-      <Swatch v-for="color in colors"
-              :key="color"
-              :color="color"
-              class="swatch"
-              @click="onClick(color)"
+      <Swatch v-for="item in colors"
+              :key="item"
+              :color="item"
+              class="twitter-swatch"
+              @click="change"
       ></Swatch>
-      <EditableInput hash style="width: 135px;" v-model="modelValue"/>
+      <EditableInput hash style="max-width: 135px;min-width: 100px" :color="color.hex" @change="change"/>
     </div>
   </div>
 
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {computed, ComputedRef, ref} from "vue";
 import EditableInput from "../../common/EditableInput.vue"
 import Swatch from "../../common/Swatch.vue";
+import {ColorInput} from "tinycolor2";
+import {ColorFormat, ColorObject, Size} from "../../interface";
+import {convertColor, formatColor} from "../../utils/color";
 
-const props = defineProps({
-  width: {
-    type: String, default: '276px'
-  },
-  colors: {
-    type: Array, default: ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3',
-      '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF']
-  },
-  triangle: {
-    type: String,
-    default: 'top-left'
-  },
-  modelValue: {}
+
+interface TwitterPropsType {
+  modelValue: ColorInput
+  format?: ColorFormat,
+  colors?: Array<ColorInput>,
+  triangle?: string,
+  size: Size | 'full',
+  width?: string
+}
+
+const props = withDefaults(defineProps<TwitterPropsType>(), {
+  colors: () => ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3',
+    '#ABB8C3', '#EB144C', '#F78DA7'],
+  width: '276px',
+  triangle: 'top-left',
+  format: 'rgb'
 })
+
 const emit = defineEmits(['update:modelValue'])
 
 const triangleShadowStyle = computed(() => {
@@ -67,21 +74,26 @@ const triangleStyle = computed(() => {
   }
 })
 
-const onClick = color => {
-  console.log(color)
-  emit('update:modelValue', color)
+
+const color: ComputedRef<ColorObject> = computed(() => {
+  return convertColor(props.modelValue)
+})
+
+const change = (data: ColorObject | string) => {
+  emit("update:modelValue", formatColor(data, props.format), data)
 }
 
 </script>
 
 <style scoped>
-.card {
+.twitter-picker {
   background: #ffffff;
   border: 0 solid rgba(0, 0, 0, 0.25);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   position: relative;
   height: fit-content;
+
 }
 
 .body {
@@ -110,21 +122,10 @@ const onClick = color => {
   position: absolute;
 }
 
-.hash {
-  background: #F0F0F0;
-  height: 30px;
-  width: 30px;
-  border-radius: 4px 0 0 4px;
-  float: left;
-  color: #98A1A4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.swatch {
+.twitter-swatch {
   width: 30px;
   height: 30px;
   border-radius: 4px;
+  overflow: hidden;
 }
 </style>

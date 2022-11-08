@@ -76,7 +76,11 @@ export const getContrastingColor = (data: ColorObject) => {
 //     return tinycolor(`${type} (${stringWithoutDegree})`)._ok
 // }
 
-
+export const colorEquals = (color1: ColorObject, color2: ColorInput) => {
+    const c1 = tinycolor(color1.origin)
+    const c2 = tinycolor(color2)
+    return tinycolor.equals(c1, c2);
+}
 export const convertColor = (color: ColorInput): ColorObject => {
     const c = tinycolor(color)
     const t = tinycolor(c)

@@ -1,6 +1,6 @@
 <template>
-  <div style="position: relative">
-    <Checkboard class="swatch-checkboard"></Checkboard>
+  <div class="swatch">
+    <Checkboard class="swatch-checkboard" v-if="alpha"></Checkboard>
     <div class="swatch" :style="styles" @click="handleClick">
       <slot></slot>
     </div>
@@ -13,14 +13,19 @@ import {computed} from "vue";
 import {ColorInput} from "tinycolor2";
 
 interface SwatchPropsType {
-  color: ColorInput
+  color: ColorInput,
+  active?: boolean,
+  alpha?: boolean
 }
 
-const props = defineProps<SwatchPropsType>()
+const props = withDefaults(defineProps<SwatchPropsType>(), {
+  active: false,
+  alpha: false
+})
 const emits = defineEmits(['click'])
 const handleClick = (e: Event) => emits('click', props.color, e)
 const styles = computed(() => {
-  return {
+  return props.active ? '' : {
     background: props.color
   }
 })
