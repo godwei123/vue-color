@@ -1,14 +1,14 @@
 <template>
   <div
-      :style="{width:`${width}px`,height:`${height}px`}"
+      :style="styles"
       class="picker alpha-picker">
     <Alpha
-        radius="4px"
+        :radius="radius"
         :color="color"
         :direction="direction"
         @change="change"
     >
-      <AlphaPointer :direction="direction" :color="color"/>
+      <AlphaPointer :size="sizeEnum[size]" :direction="direction" :color="color"/>
     </Alpha>
   </div>
 </template>
@@ -26,16 +26,33 @@ interface AlphaPropsType {
   format?: ColorFormat,
   direction?: Direction,
   width?: number,
-  height?: number,
-  size?: Size
+  size?: Size,
+  round?: boolean
 }
 
 const props = withDefaults(defineProps<AlphaPropsType>(), {
-  width: 361,
-  height: 16,
   direction: 'horizontal',
   format: 'rgb',
-  size: 'default'
+  size: 'default',
+  round: false
+})
+const sizeEnum = {
+  'mini': 10,
+  'small': 14,
+  'default': 16,
+  'middle': 18,
+  'large': 20,
+}
+const styles = computed(() => {
+  return props.direction === 'horizontal' ?
+      {
+        width: props.width ? `${props.width}px` : '100%',
+        height: `${sizeEnum[props.size]}px`
+      } :
+      {
+        height: props.width ? `${props.width}px` : '100%',
+        width: `${sizeEnum[props.size]}px`
+      }
 })
 
 const emit = defineEmits(["update:modelValue"])
@@ -44,13 +61,18 @@ const color: ComputedRef<ColorObject> = computed(() => {
   return convertColor(props.modelValue)
 })
 
+const radius = computed(() => {
+  return props.round ? `${sizeEnum[props.size] / 2}px` : "4px"
+})
+
 const change = (data: ColorObject) => {
-  emit("update:modelValue", formatColor(data, props.format))
+  emit("update:modelValue", formatColor(data, props.format), data)
 }
 </script>
 
 <style scoped>
 .alpha-picker {
   position: relative;
+  width: 100%;
 }
 </style>

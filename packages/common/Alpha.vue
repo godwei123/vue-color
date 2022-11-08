@@ -27,7 +27,7 @@ interface Alpha {
   color: ColorObject,
   direction: Direction,
   radius?: string,
-  shadow?: string
+  shadow?: string,
 }
 
 const props = defineProps<Alpha>()

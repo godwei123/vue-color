@@ -8,7 +8,7 @@ export interface HLSA {
 }
 
 type ColorFormat = "rgb" | "hex" | "hex8" | "hsl" | "hsv"
-type Size = 'small' | 'default' | 'large'
+type Size = 'mini' | 'small' | 'default' | 'middle' | 'large'
 type Direction = 'horizontal' | 'vertical'
 
 

@@ -33,7 +33,13 @@ watch(value, () => {
       <!--      <CompactPicker v-model="value"/>-->
       <!--      <EditableInput label="R"/>-->
       <!--      <SInput/>-->
-      <AlphaPicker v-model="value"/>
+      <div style="width: 600px;height: 500px;">
+        <AlphaPicker v-model="value" :width="252" round size="mini" style="margin: 20px;"/>
+        <AlphaPicker v-model="value" :width="252" size="small" style="margin: 20px;"/>
+        <AlphaPicker v-model="value" :width="252" size="default" style="margin: 20px;"/>
+        <AlphaPicker v-model="value" :width="252" size="middle" style="margin: 20px;"/>
+        <AlphaPicker v-model="value" :width="252" round size="large" style="margin: 20px;"/>
+      </div>
     </div>
   </div>
 </template>

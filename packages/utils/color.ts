@@ -104,16 +104,5 @@ export const convertColor = (color: ColorInput): ColorObject => {
 
 
 export const formatColor = (color: ColorObject, format: ColorFormat) => {
-    const c = tinycolor(color.origin);
-    if (format === 'rgb') {
-        return c.toRgb()
-    } else if (format === 'hex') {
-        return c.toHex()
-    } else if (format === 'hex8') {
-        return c.toHex8()
-    } else if (format === 'hsl') {
-        return c.toHsl()
-    } else if (format === 'hsv') {
-        return c.toHsv()
-    }
+    return tinycolor(color.origin).toString(format);
 }
