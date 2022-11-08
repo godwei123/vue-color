@@ -22,7 +22,7 @@ interface EditInputPropsType {
   placeholder?: string,
   label?: string,
   hash?: boolean,
-  color: string,
+  color: string | number,
   radius?: string,
   styles?: CSSProperties
   maxlength?: number
@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<EditInputPropsType>(), {
 const emit = defineEmits(['change']);
 
 const onBlur = (e: Event) => {
-  emit('change', (e.target as HTMLInputElement).value)
+  emit('change', (e.target as HTMLInputElement).value, props.label)
 }
 
 

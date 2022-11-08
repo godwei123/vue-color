@@ -9,7 +9,7 @@
             :active="colorEquals(color,c)"
             @click="change"/>
       </div>
-      <CompactFields/>
+      <CompactFields :color="color" @click="change"/>
     </div>
   </Raised>
 </template>
