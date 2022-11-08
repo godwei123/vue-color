@@ -3,6 +3,7 @@
 TODO:
 Alpha:鼠标事件
 Hue
+Pointer 逻辑剔除
 
 1. v-model深层怎么处理最好
 2. 去除多余的方法

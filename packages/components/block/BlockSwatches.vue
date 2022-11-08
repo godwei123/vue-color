@@ -1,41 +1,44 @@
 <template>
-  <div class="swatches">
+  <div class="block-swatches">
     <Swatch v-for="color in colors"
-        :key="color"
-        :color="color"
-        class="swatch"
-        @click="onClick"
-        @hover="onSwatchHover"
+            :key="color"
+            :color="color"
+            class="block-swatch"
+            @click="onClick"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 import Swatch from '../../common/Swatch.vue'
-import {ref} from "vue";
-defineProps(["colors"])
-const emit = defineEmits(["change","swatchHover"])
+import {ColorInput} from "tinycolor2";
 
-const onClick = (color,e) => {
-  emit("change",color)
+interface BlockSwatchesPropsType {
+  colors: Array<ColorInput>
 }
 
-const onSwatchHover = (color,e) => {
-  emit("swatchHover",e)
+const props = withDefaults(defineProps<BlockSwatchesPropsType>(), {})
+const emit = defineEmits(["change"])
+
+const onClick = (color: ColorInput) => {
+  emit("change", color)
 }
+
 </script>
 
 <style scoped>
-.swatches{
+.block-swatches {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 22px);
+  grid-template-columns: repeat(auto-fit, 24px);
   justify-content: space-between;
   gap: 8px;
-  margin-bottom: 8px;
+  padding-bottom: 8px;
 }
-.swatch{
-  width: 22px;
-  height: 22px;
-  border-radius: 4px;
+
+.block-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  overflow: hidden;
 }
 </style>

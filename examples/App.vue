@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// import BlockPicker from "../packages/components/block/BlockPicker.vue"
 import {ref, watch} from "vue";
 import AlphaPicker from "../packages/components/alpha/AlphaPicker.vue";
 import HuePicker from "../packages/components/hue/HuePicker.vue";
+import BlockPicker from "../packages/components/block/BlockPicker.vue";
 // import TwitterPicker from "../packages/components/twitter/TwitterPicker.vue";
 // import GithubPicker from "../packages/components/github/GithubPicker.vue";
 // import CirclePicker from "../packages/components/circle/CirclePicker.vue";
@@ -27,7 +27,6 @@ watch(value, () => {
     <div :style="{width: '100px',height: '100px',background:value,marginBottom:'50px'}"></div>
 
     <div style="display:flex;gap: 50px;flex-wrap: wrap;flex-direction: column">
-      <!--      <BlockPicker v-model="value" :colors="colors" width="250px"/>-->
       <!--      <TwitterPicker v-model="value"/>-->
       <!--      <GithubPicker v-model="value"/>-->
       <!--      <CirclePicker v-model="value"/>-->
@@ -48,6 +47,13 @@ watch(value, () => {
         <HuePicker v-model="value" format="hsl" :width="316" size="default" style="margin: 20px;"/>
         <HuePicker v-model="value" :width="316" size="middle" style="margin: 20px;"/>
         <HuePicker v-model="value" :width="316" size="large" style="margin: 20px;"/>
+      </div>
+      <div>
+        <BlockPicker v-model="value" size="mini" style="margin: 20px;"/>
+        <BlockPicker v-model="value" size="small" style="margin: 20px;"/>
+        <BlockPicker v-model="value" size="default" style="margin: 20px;"/>
+        <BlockPicker v-model="value" size="middle" style="margin: 20px;"/>
+        <BlockPicker v-model="value" size="large" style="margin: 20px;"/>
       </div>
     </div>
   </div>

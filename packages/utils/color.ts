@@ -53,18 +53,17 @@ import {ColorFormat, ColorObject} from "../interface";
 //     return hex.length !== (4 + lh) && hex.length < (7 + lh) && tinycolor(hex).isValid()
 // }
 //
-// export const getContrastingColor = (data: string) => {
-//     if (!data) {
-//         return '#fff'
-//     }
-//     const col = toState(data)
-//     if (col.hex === 'transparent') {
-//         return 'rgba(0,0,0,0.4)'
-//     }
-//     const yiq = ((col.rgb.r * 299) + (col.rgb.g * 587) + (col.rgb.b * 114)) / 1000
-//     return (yiq >= 128) ? '#000' : '#fff'
-// }
-//
+export const getContrastingColor = (data: ColorObject) => {
+    if (!data) {
+        return '#fff'
+    }
+    if (data.hex === 'transparent') {
+        return 'rgba(0,0,0,0.4)'
+    }
+    const yiq = ((data.rgb.r * 299) + (data.rgb.g * 587) + (data.rgb.b * 114)) / 1000
+    return (yiq >= 128) ? '#000' : '#fff'
+}
+
 // export const red = {
 //     hsl: {a: 1, h: 0, l: 0.5, s: 1},
 //     hex: '#ff0000',
@@ -103,6 +102,6 @@ export const convertColor = (color: ColorInput): ColorObject => {
 }
 
 
-export const formatColor = (color: ColorObject, format: ColorFormat) => {
-    return tinycolor(color.origin).toString(format);
+export const formatColor = (color: ColorObject | string, format: ColorFormat) => {
+    return tinycolor(typeof color === 'string' ? color : color.origin).toString(format);
 }

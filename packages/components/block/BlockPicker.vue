@@ -1,62 +1,81 @@
 <template>
-  <div class="card block-picker" :style="{width:width}">
-    <div v-if="triangle==='top'" class="triangle"
-         :style="{borderColor:`transparent transparent ${modelValue} transparent`}"></div>
-    <div class="head" :style="{background:modelValue}">
-      <Checkboard v-if="disableAlpha"/>
-      <div class="label" :style="{color:color.getContrastingColor(modelValue)}">
-        {{ modelValue }}
+  <div class="picker block-picker" :style="{width:styles.width}">
+    <div v-if="triangle==='top'" class="triangle" :style="{borderColor:styles.borderColor}"></div>
+    <div style="position: relative">
+      <Checkboard v-if="alpha" style="border-radius: 6px 6px 0 0"/>
+      <div class="head" :style="{background:color.origin}">
+        <div class="label" :style="{color:styles.contrastingColor}">
+          {{ color.hexString }}
+        </div>
       </div>
     </div>
     <div class="body">
-      <BlockSwatches :colors="colors" @change="handleChange" @swatchHover="onSwatchHover"/>
-      <EditableInput v-model="modelValue"/>
+      <BlockSwatches :colors="colors" @change="change"/>
+      <EditableInput radius="4px" style="height: 24px;" :color="color.hexString" @change="change"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {ref, defineProps} from "vue";
+import {defineProps, ComputedRef, computed} from "vue";
 import EditableInput from "../../common/EditableInput.vue"
 import BlockSwatches from "./BlockSwatches.vue"
 import Checkboard from "../../common/Checkboard.vue"
-import * as color from "../../utils/color"
+import {ColorFormat, ColorObject, Size} from "../../interface";
+import {ColorInput} from "tinycolor2";
+import {convertColor, formatColor, getContrastingColor} from "../../utils/color";
 
-const props = defineProps({
-  width: {
-    type: String,
-    default: '170px'
-  },
-  colors: {
-    type: Array,
-    default: ['#D9E3F0', '#F47373', '#697689', '#37D67A', '#2CCCE4', '#555555',
-      '#dce775', '#ff8a65', '#ba68c8']
-  },
-  triangle: {
-    type: String,
-    default: 'top'
-  },
-  modelValue: {},
-  disableAlpha: {
-    type: Boolean,
-    default: false
+interface BlockPropsType {
+  modelValue: ColorInput
+  format?: ColorFormat,
+  colors?: Array<ColorInput>,
+  triangle?: string,
+  alpha?: boolean,
+  size: Size | 'full',
+  width?: string
+}
+
+const props = withDefaults(defineProps<BlockPropsType>(), {
+  colors: () => ['#D9E3F0', '#F47373', '#697689', '#37D67A', '#2CCCE4', '#555555',
+    '#dce775', '#ff8a65', '#ba68c8'],
+  triangle: 'top',
+  format: 'rgb',
+  size: 'default',
+  alpha: false,
+})
+
+const sizeEnum = {
+  'mini': '180px',
+  'small': '220px',
+  'default': '260px',
+  'middle': '300px',
+  'large': '340px',
+  'full': "100%"
+}
+const styles = computed(() => {
+  return {
+    width: props.width ? props.width : sizeEnum[props.size],
+    borderColor: `transparent transparent ${color.value.hexString} transparent`,
+    contrastingColor: `${getContrastingColor(color.value)}`
   }
+
 })
 
 const emit = defineEmits(['update:modelValue'])
 
 
-const handleChange = (color) => {
-  emit('update:modelValue', color)
+const color: ComputedRef<ColorObject> = computed(() => {
+  return convertColor(props.modelValue)
+})
+
+const change = (data: ColorObject | string) => {
+  emit("update:modelValue", formatColor(data, props.format), data)
 }
 
-const onSwatchHover = () => {
-
-}
 </script>
 
 <style scoped>
-.card {
+.picker {
   background: #fff;
   box-shadow: 0 1px rgba(0, 0, 0, .1);
   border-radius: 6px;
@@ -65,7 +84,7 @@ const onSwatchHover = () => {
 }
 
 .head {
-  height: 110px;
+  padding: 17%;
   border-radius: 6px 6px 0 0;
   display: flex;
   justify-content: center;

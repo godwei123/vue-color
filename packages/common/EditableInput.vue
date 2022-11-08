@@ -6,23 +6,41 @@
         :class="['color-input',border?'':'box-shadow-none']"
         type="text"
         :placeholder="placeholder"
-        :value="modelValue"
-        @input="$emit('update:modelValue', $event.target.value)"
+        :value="color"
+        @keyup.enter="onBlur"
+        @blur="onBlur"
+        :style="styles"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import {defineProps, defineEmits} from "vue";
+import {defineProps, defineEmits, computed} from "vue";
 
-defineProps({
-  placeholder: {type: String, default: ""},
-  label: {type: String, default: ""},
-  hash: {type: Boolean, default: false},
-  border: {type: Boolean, default: false},
-  modelValue: {}
+interface EditInputPropsType {
+  placeholder?: string,
+  label?: string,
+  hash?: boolean,
+  border?: boolean,
+  color: string,
+  radius?: string
+}
+
+const props = withDefaults(defineProps<EditInputPropsType>(), {
+  hash: false,
+  border: false
 })
-defineEmits(['update:modelValue']);
+const emit = defineEmits(['change']);
+
+const styles = computed(() => {
+  return {
+    borderRadius: props.radius
+  }
+})
+const onBlur = (e: Event) => {
+  emit('change', (e.target as HTMLInputElement).value)
+}
+
 
 </script>
 
@@ -31,6 +49,7 @@ defineEmits(['update:modelValue']);
   position: relative;
   display: flex;
   align-items: stretch;
+
 }
 
 .box-shadow-none {
