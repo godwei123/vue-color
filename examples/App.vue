@@ -2,6 +2,7 @@
 // import BlockPicker from "../packages/components/block/BlockPicker.vue"
 import {ref, watch} from "vue";
 import AlphaPicker from "../packages/components/alpha/AlphaPicker.vue";
+import HuePicker from "../packages/components/hue/HuePicker.vue";
 // import TwitterPicker from "../packages/components/twitter/TwitterPicker.vue";
 // import GithubPicker from "../packages/components/github/GithubPicker.vue";
 // import CirclePicker from "../packages/components/circle/CirclePicker.vue";
@@ -22,10 +23,10 @@ watch(value, () => {
 <template>
 
   <div class="box"
-       style="display:flex;height: 100vh;justify-content: center;align-items: center;flex-direction: column;">
+       style="display:flex;min-height: 100vh;justify-content: center;align-items: center;flex-direction: column;">
     <div :style="{width: '100px',height: '100px',background:value,marginBottom:'50px'}"></div>
 
-    <div style="display:flex;gap: 50px;flex-wrap: wrap">
+    <div style="display:flex;gap: 50px;flex-wrap: wrap;flex-direction: column">
       <!--      <BlockPicker v-model="value" :colors="colors" width="250px"/>-->
       <!--      <TwitterPicker v-model="value"/>-->
       <!--      <GithubPicker v-model="value"/>-->
@@ -33,12 +34,20 @@ watch(value, () => {
       <!--      <CompactPicker v-model="value"/>-->
       <!--      <EditableInput label="R"/>-->
       <!--      <SInput/>-->
-      <div style="width: 600px;height: 500px;">
+      <div>
         <AlphaPicker v-model="value" :width="252" round size="mini" style="margin: 20px;"/>
         <AlphaPicker v-model="value" :width="252" size="small" style="margin: 20px;"/>
         <AlphaPicker v-model="value" :width="252" size="default" style="margin: 20px;"/>
         <AlphaPicker v-model="value" :width="252" size="middle" style="margin: 20px;"/>
         <AlphaPicker v-model="value" :width="252" round size="large" style="margin: 20px;"/>
+      </div>
+
+      <div>
+        <HuePicker v-model="value" :width="316" size="mini" style="margin: 20px;"/>
+        <HuePicker v-model="value" :width="316" size="small" style="margin: 20px;"/>
+        <HuePicker v-model="value" format="hsl" :width="316" size="default" style="margin: 20px;"/>
+        <HuePicker v-model="value" :width="316" size="middle" style="margin: 20px;"/>
+        <HuePicker v-model="value" :width="316" size="large" style="margin: 20px;"/>
       </div>
     </div>
   </div>

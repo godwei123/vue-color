@@ -1,6 +1,7 @@
-import {HLSA} from "../interface";
+import {ColorFormats} from "tinycolor2";
+import {convertColor} from "./color";
 
-export const calculateChange = (e: any, direction: string, hsl: HLSA, container: HTMLElement) => {
+export const calculateChange = (e: any, direction: string, hsl: ColorFormats.HSLA, container: HTMLElement) => {
     const containerWidth = container.clientWidth
     const containerHeight = container.clientHeight
     const x = typeof e.pageX === 'number' ? e.pageX : e.touches[0].pageX
@@ -20,13 +21,12 @@ export const calculateChange = (e: any, direction: string, hsl: HLSA, container:
         }
 
         if (hsl.h !== h) {
-            return {
+            return convertColor({
                 h,
                 s: hsl.s,
                 l: hsl.l,
                 a: hsl.a,
-                source: 'hsl',
-            }
+            })
         }
     } else {
         let h
@@ -40,14 +40,13 @@ export const calculateChange = (e: any, direction: string, hsl: HLSA, container:
         }
 
         if (hsl.h !== h) {
-            return {
+            return convertColor({
                 h,
                 s: hsl.s,
                 l: hsl.l,
                 a: hsl.a,
-                source: 'hsl',
-            }
+            })
         }
     }
-    return null
+    return convertColor(hsl)
 }

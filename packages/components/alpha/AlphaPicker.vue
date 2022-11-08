@@ -57,12 +57,12 @@ const styles = computed(() => {
 
 const emit = defineEmits(["update:modelValue"])
 
-const color: ComputedRef<ColorObject> = computed(() => {
-  return convertColor(props.modelValue)
-})
-
 const radius = computed(() => {
   return props.round ? `${sizeEnum[props.size] / 2}px` : "4px"
+})
+
+const color: ComputedRef<ColorObject> = computed(() => {
+  return convertColor(props.modelValue)
 })
 
 const change = (data: ColorObject) => {
