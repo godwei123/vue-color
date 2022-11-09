@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {ref, watch} from "vue";
 import AlphaPicker from "../packages/components/alpha/AlphaPicker.vue";
+import HuePicker from "../packages/components/hue/HuePicker.vue";
 
 
 const value = ref('#194d33')
@@ -26,7 +27,10 @@ const inputChange = (val, e) => {
 
     <div style="display:flex;flex-wrap: wrap;flex-direction: column">
       <div>
-        <AlphaPicker v-model="value" size="default" style="margin: 20px;"/>
+        <AlphaPicker round v-model="value" style="margin: 20px;"/>
+      </div>
+      <div>
+        <HuePicker round v-model="value" style="margin: 20px;"/>
       </div>
 
     </div>

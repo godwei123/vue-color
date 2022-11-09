@@ -18,10 +18,10 @@
 
 <script setup lang="ts">
 import {computed, CSSProperties, onUnmounted, ref} from "vue";
-import {calculateChange} from "../utils/alpha"
+import {calculateChange} from "@/utils/alpha"
 import Checkboard from "../common/Checkboard.vue"
-import {useThrottle} from "../hooks/useThrottle";
-import {ColorObject, Direction} from "../interface";
+import {useThrottle} from "@/hooks/useThrottle";
+import {ColorObject, Direction} from "@/interface";
 
 interface Alpha {
   color: ColorObject,

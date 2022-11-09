@@ -1,9 +1,9 @@
 <template>
   <div
-      :style="styles.alphaWrap"
+      :style="{width:styles.width,height:styles.height}"
       class="picker alpha-picker">
     <Alpha
-        :radius="radius"
+        :radius="styles.radius"
         :direction="direction"
         :color="color"
         @change="change"
@@ -14,42 +14,37 @@
 </template>
 
 <script setup lang="ts">
-import Alpha from "../../common/Alpha.vue"
-import AlphaPointer from "./AlphaPointer.vue"
-import {ColorInput} from "tinycolor2";
-import {convertColor, formatColor} from "../../utils/color";
 import {computed, ComputedRef} from "vue";
-import {ColorFormat, ColorObject, Direction, Size} from "../../interface";
-import Pointer from "../../common/Pointer.vue";
+import {ColorInput} from "tinycolor2";
+import Alpha from "@/common/Alpha.vue"
+import Pointer from "@/common/Pointer.vue";
+import {ColorFormat, ColorObject, Direction, Size} from "@/interface";
+import {convertColor, formatColor} from "@/utils/color";
 
 interface AlphaPropsType {
   modelValue: ColorInput,
   format?: ColorFormat,
   direction?: Direction,
   width?: string,
-  size?: Size,
-  round?: boolean
+  height?: string
+  round?: boolean | string
 }
 
 const props = withDefaults(defineProps<AlphaPropsType>(), {
   direction: 'horizontal',
   format: 'rgb',
-  size: 'default',
   round: false,
-  width: '250px'
+  width: '316px',
+  height: '16px'
 })
-const sizeEnum = {
-  'mini': 10,
-  'small': 14,
-  'default': 16,
-  'middle': 18,
-  'large': 20,
-}
+
+const emit = defineEmits(["update:modelValue"])
+
 const styles = computed(() => {
-  let size = sizeEnum[props.size]
+  let size = parseInt(props.height)
   let width = size + 2;
   let height = size + 2;
-  let alphaWrap = {}, pointer = {}
+  let radius = "", pointer = {}
   if (props.direction == 'vertical') {
     pointer = {
       width: `${width}px`,
@@ -57,10 +52,6 @@ const styles = computed(() => {
       transform: `translate(-4px, ${-width / 2}px)`,
       top: `${color.value.rgb.a * 100}%`,
       transition: 'top linear .1s'
-    }
-    alphaWrap = {
-      height: props.width ? props.width : '100%',
-      width: `${size}px`
     }
   } else {
     pointer = {
@@ -70,22 +61,18 @@ const styles = computed(() => {
       left: `${color.value.rgb.a * 100}%`,
       transition: "left linear .1s"
     }
-
-    alphaWrap = {
-      width: props.width ? props.width : '100%',
-      height: `${size}px`
-    }
+  }
+  if (typeof props.round === 'boolean') {
+    radius = props.round ? `${size / 2}px` : '0'
+  } else {
+    radius = props.round
   }
   return {
-    alphaWrap,
-    pointer
+    width: props.direction == 'horizontal' ? props.width : props.height,
+    height: props.direction == 'vertical' ? props.width : props.height,
+    pointer,
+    radius
   }
-})
-
-const emit = defineEmits(["update:modelValue"])
-
-const radius = computed(() => {
-  return props.round ? `${sizeEnum[props.size] / 2}px` : "4px"
 })
 
 const color: ComputedRef<ColorObject> = computed(() => {
