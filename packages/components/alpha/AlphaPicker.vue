@@ -1,14 +1,14 @@
 <template>
   <div
-      :style="styles"
+      :style="styles.alphaWrap"
       class="picker alpha-picker">
     <Alpha
         :radius="radius"
-        :color="color"
         :direction="direction"
+        :color="color"
         @change="change"
     >
-      <AlphaPointer :size="sizeEnum[size]" :direction="direction" :color="color"/>
+      <Pointer :styles="styles.pointer"/>
     </Alpha>
   </div>
 </template>
@@ -20,12 +20,13 @@ import {ColorInput} from "tinycolor2";
 import {convertColor, formatColor} from "../../utils/color";
 import {computed, ComputedRef} from "vue";
 import {ColorFormat, ColorObject, Direction, Size} from "../../interface";
+import Pointer from "../../common/Pointer.vue";
 
 interface AlphaPropsType {
   modelValue: ColorInput,
   format?: ColorFormat,
   direction?: Direction,
-  width?: number,
+  width?: string,
   size?: Size,
   round?: boolean
 }
@@ -34,7 +35,8 @@ const props = withDefaults(defineProps<AlphaPropsType>(), {
   direction: 'horizontal',
   format: 'rgb',
   size: 'default',
-  round: false
+  round: false,
+  width: '250px'
 })
 const sizeEnum = {
   'mini': 10,
@@ -44,15 +46,40 @@ const sizeEnum = {
   'large': 20,
 }
 const styles = computed(() => {
-  return props.direction === 'horizontal' ?
-      {
-        width: props.width ? `${props.width}px` : '100%',
-        height: `${sizeEnum[props.size]}px`
-      } :
-      {
-        height: props.width ? `${props.width}px` : '100%',
-        width: `${sizeEnum[props.size]}px`
-      }
+  let size = sizeEnum[props.size]
+  let width = size + 2;
+  let height = size + 2;
+  let alphaWrap = {}, pointer = {}
+  if (props.direction == 'vertical') {
+    pointer = {
+      width: `${width}px`,
+      height: `${height}px`,
+      transform: `translate(-4px, ${-width / 2}px)`,
+      top: `${color.value.rgb.a * 100}%`,
+      transition: 'top linear .1s'
+    }
+    alphaWrap = {
+      height: props.width ? props.width : '100%',
+      width: `${size}px`
+    }
+  } else {
+    pointer = {
+      width: `${width}px`,
+      height: `${height}px`,
+      transform: ` translate(${-width / 2}px, -1px)`,
+      left: `${color.value.rgb.a * 100}%`,
+      transition: "left linear .1s"
+    }
+
+    alphaWrap = {
+      width: props.width ? props.width : '100%',
+      height: `${size}px`
+    }
+  }
+  return {
+    alphaWrap,
+    pointer
+  }
 })
 
 const emit = defineEmits(["update:modelValue"])

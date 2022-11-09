@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onUnmounted, ref} from "vue";
+import {computed, CSSProperties, onUnmounted, ref} from "vue";
 import {calculateChange} from "../utils/alpha"
 import Checkboard from "../common/Checkboard.vue"
 import {useThrottle} from "../hooks/useThrottle";
@@ -25,17 +25,22 @@ import {ColorObject, Direction} from "../interface";
 
 interface Alpha {
   color: ColorObject,
-  direction: Direction,
+  direction?: Direction,
   radius?: string,
   shadow?: string,
+  styles?: CSSProperties
 }
 
-const props = defineProps<Alpha>()
+const props = withDefaults(defineProps<Alpha>(), {
+  direction: 'horizontal',
+  radius: '0px',
+  shadow: ''
+})
 const emit = defineEmits(['change'])
 const container = ref()
 const handleChange = (e: Event) => {
   const change = calculateChange(e, props.color.hsl, props.direction, props.color.hsl.a, container.value)
-  change && emit('change', change)
+  emit('change', change)
 }
 
 const {cancel, run} = useThrottle(handleChange, 200)

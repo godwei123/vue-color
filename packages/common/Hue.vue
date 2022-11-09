@@ -17,11 +17,13 @@ import {calculateChange} from "../utils/hue";
 import {ColorObject, Direction} from "../interface";
 
 interface Hue {
-  direction: Direction,
+  direction?: Direction,
   color: ColorObject
 }
 
-const props = withDefaults(defineProps<Hue>(), {})
+const props = withDefaults(defineProps<Hue>(), {
+  direction: 'horizontal'
+})
 
 const emit = defineEmits(['change'])
 

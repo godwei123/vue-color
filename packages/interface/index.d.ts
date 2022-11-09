@@ -1,5 +1,6 @@
 import {ColorFormats, ColorInput} from "tinycolor2";
 
+
 export interface HLSA {
     h: number;
     l: number;

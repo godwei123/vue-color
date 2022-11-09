@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import {ref, watch} from "vue";
 import AlphaPicker from "../packages/components/alpha/AlphaPicker.vue";
-import HuePicker from "../packages/components/hue/HuePicker.vue";
-import BlockPicker from "../packages/components/block/BlockPicker.vue";
-import TwitterPicker from "../packages/components/twitter/TwitterPicker.vue";
-import CirclePicker from "../packages/components/circle/CirclePicker.vue";
-import CompactPicker from "../packages/components/compact/CompactPicker.vue";
 
 
 const value = ref('#194d33')
@@ -16,6 +11,11 @@ watch(value, () => {
   console.log(value)
 })
 
+const num = ref(10)
+const inputChange = (val, e) => {
+  num.value = val
+  console.log(val, e)
+}
 </script>
 
 <template>
@@ -26,14 +26,9 @@ watch(value, () => {
 
     <div style="display:flex;flex-wrap: wrap;flex-direction: column">
       <div>
-        <TwitterPicker v-model="value" size="default" style="margin: 20px;"/>
+        <AlphaPicker v-model="value" size="default" style="margin: 20px;"/>
       </div>
-      <div>
-        <CirclePicker v-model="value" style="margin: 20px;"/>
-      </div>
-      <div>
-        <CompactPicker v-model="value" style="margin: 20px;"/>
-      </div>
+
     </div>
   </div>
 </template>
