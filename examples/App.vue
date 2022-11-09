@@ -4,6 +4,7 @@ import AlphaPicker from "../packages/components/alpha/AlphaPicker.vue";
 import HuePicker from "../packages/components/hue/HuePicker.vue";
 import GithubPicker from "../packages/components/github/GithubPicker.vue";
 import {Placement} from "../packages/interface";
+import TwitterPicker from "../packages/components/twitter/TwitterPicker.vue";
 
 
 const value = ref('#194d33')
@@ -34,9 +35,8 @@ const places: Array<Placement> = []
         <HuePicker round v-model="value" style="margin: 20px;"/>
       </div>
       <div>
-        <GithubPicker width="200px" sub-width="40px" v-model="value" style="margin: 20px;"/>
+        <TwitterPicker width="200px" v-model="value" style="margin: 20px;"/>
       </div>
-
     </div>
   </div>
 </template>

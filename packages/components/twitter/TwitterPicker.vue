@@ -1,75 +1,100 @@
 <template>
-  <div class="picker twitter-picker" :style="{width:width}">
-    <div class="triangle-shadow" :style="triangleShadowStyle"></div>
-    <div class="triangle" :style="triangleStyle"></div>
+  <div class="picker twitter-picker" :style="{width:styles.width}">
+    <div class="triangle-shadow" :style="styles.triangleShadow"></div>
+    <div class="triangle" :style="styles.triangle"></div>
     <div class="body">
-      <Swatch v-for="item in colors"
-              :key="item"
-              :color="item"
-              class="twitter-swatch"
-              @click="change"
-      ></Swatch>
-      <EditableInput hash style="max-width: 135px;min-width: 100px" :color="color.hex" @change="change"/>
+      <div class="twitter-swatches">
+        <div class="twitter-swatch"
+             :style="{width:subWidth,height:subWidth}"
+             v-for="item in colors"
+             :key="item">
+          <Swatch :color="item" @click="change"></Swatch>
+        </div>
+        <!--        <EditableInput hash style="max-width: 135px;min-width: 100px" :color="color.hex" @change="change"/>-->
+        <div style="display:flex;">
+          <span class="hash" :style="{width:subWidth,height:subWidth}">#</span>
+          <edit-input :value="color.hex" @change="change" :styles="inputStyles"/>
+        </div>
+      </div>
     </div>
   </div>
 
 </template>
 
 <script setup lang="ts">
-import {computed, ComputedRef, ref} from "vue";
-import EditableInput from "../../common/EditableInput.vue"
-import Swatch from "../../common/Swatch.vue";
+import {computed, ComputedRef, CSSProperties} from "vue";
+import EditableInput from "@/common/EditableInput.vue"
+import Swatch from "@/common/Swatch.vue";
 import {ColorInput} from "tinycolor2";
-import {ColorFormat, ColorObject, Size} from "../../interface";
-import {convertColor, formatColor} from "../../utils/color";
+import {ColorFormat, ColorObject, Size} from "@/interface";
+import {convertColor, formatColor} from "@/utils/color";
+import EditInput from "@/common/EditInput.vue";
 
 
 interface TwitterPropsType {
   modelValue: ColorInput
   format?: ColorFormat,
   colors?: Array<ColorInput>,
-  triangle?: string,
-  size: Size | 'full',
-  width?: string
+  placement?: "hide" | "top-start" | "top-end"
+  width?: string,
+  subWidth?: string
 }
 
 const props = withDefaults(defineProps<TwitterPropsType>(), {
   colors: () => ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3',
     '#ABB8C3', '#EB144C', '#F78DA7'],
   width: '276px',
-  triangle: 'top-left',
-  format: 'rgb'
+  placement: 'top-start',
+  format: 'rgb',
+  subWidth: '30px'
 })
 
 const emit = defineEmits(['update:modelValue'])
 
-const triangleShadowStyle = computed(() => {
-  if (props.triangle === 'hide') {
-    return {display: 'none'}
-  } else if (props.triangle === 'top-left') {
-    return {
-      top: '-11px',
-      left: '12px',
-    }
-  } else if (props.triangle === 'top-right') {
-    return {
-      top: '-11px',
-      right: '12px',
-    }
+
+const styles = computed(() => {
+  let triangleShadow: CSSProperties = {}, triangle: CSSProperties = {}
+  if (props.placement === 'hide') {
+    triangle = {display: 'none'}
+    triangleShadow = {display: 'none'}
+  }
+  if (props.placement.includes('top')) {
+    triangle = {...triangle, top: '-10px'}
+    triangleShadow = {...triangleShadow, top: '-11px'}
+  }
+  if (props.placement.includes('start')) {
+    triangle = {...triangle, left: '12px'}
+    triangleShadow = {...triangleShadow, left: '12px'}
+  }
+  if (props.placement.includes('end')) {
+    triangle = {...triangle, right: '12px'}
+    triangleShadow = {...triangleShadow, right: '12px'}
+  }
+  let w = Math.floor((parseInt(props.width) - 12) / (parseInt(props.subWidth) + 8)) * (parseInt(props.subWidth) + 8) + 12
+  return {
+    width: `${w}px`,
+    triangleShadow,
+    triangle
   }
 })
-const triangleStyle = computed(() => {
-  if (props.triangle === 'hide') {
-    return {display: 'none'}
-  } else if (props.triangle === 'top-left') {
-    return {
-      top: '-10px',
-      left: '12px',
-    }
-  } else if (props.triangle === 'top-right') {
-    return {
-      top: '-10px',
-      right: '12px',
+
+const inputStyles: ComputedRef<{ wrap?: CSSProperties, input?: CSSProperties, label?: CSSProperties }> = computed(() => {
+
+
+  return {
+    input: {
+      width: '76px',
+      fontSize: '16px',
+      color: '#666',
+      border: '0px',
+      outline: 'none',
+      height: `${props.subWidth}`,
+      boxShadow: 'inset 0 0 0 1px #F0F0F0',
+      boxSizing: 'border-box',
+      borderRadius: '0 4px 4px 0',
+      float: 'left',
+      paddingLeft: '8px',
+      "font-family": 'inherit'
     }
   }
 })
@@ -88,21 +113,24 @@ const change = (data: ColorObject | string) => {
 <style scoped>
 .twitter-picker {
   background: #ffffff;
-  border: 0 solid rgba(0, 0, 0, 0.25);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   position: relative;
   height: fit-content;
-
+  box-sizing: border-box;
+  font-family: "IBM Plex Mono", Menlo, Monaco, Consolas, "Lucida Console", monospace;
 }
 
 .body {
-  padding: 15px 9px 9px 15px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+  padding: 10px;
 }
 
+.twitter-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 5px;
+}
 
 .triangle {
   width: 0;
@@ -123,9 +151,21 @@ const change = (data: ColorObject | string) => {
 }
 
 .twitter-swatch {
-  width: 30px;
-  height: 30px;
   border-radius: 4px;
   overflow: hidden;
+}
+
+.twitter-swatch:hover {
+  transform: scale(1.1);
+  transition: transform linear 100ms;
+}
+
+.hash {
+  background: #F0F0F0;
+  border-radius: 4px 0 0 4px;
+  color: #98A1A4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
