@@ -111,7 +111,7 @@ export const convertColor = (color: ColorInput): ColorObject => {
 }
 
 
-export const formatColor = (color: ColorObject | string, format: ColorFormat) => {
+export const formatColor = (color: ColorObject | string, format: ColorFormat = 'rgb') => {
     return tinycolor(typeof color === 'string' ? color : color.origin).toString(format);
 }
 

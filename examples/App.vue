@@ -2,6 +2,8 @@
 import {ref, watch} from "vue";
 import AlphaPicker from "../packages/components/alpha/AlphaPicker.vue";
 import HuePicker from "../packages/components/hue/HuePicker.vue";
+import GithubPicker from "../packages/components/github/GithubPicker.vue";
+import {Placement} from "../packages/interface";
 
 
 const value = ref('#194d33')
@@ -12,11 +14,10 @@ watch(value, () => {
   console.log(value)
 })
 
-const num = ref(10)
-const inputChange = (val, e) => {
-  num.value = val
-  console.log(val, e)
-}
+const num = ref(200)
+
+const places: Array<Placement> = []
+
 </script>
 
 <template>
@@ -31,6 +32,9 @@ const inputChange = (val, e) => {
       </div>
       <div>
         <HuePicker round v-model="value" style="margin: 20px;"/>
+      </div>
+      <div>
+        <GithubPicker width="200px" sub-width="40px" v-model="value" style="margin: 20px;"/>
       </div>
 
     </div>

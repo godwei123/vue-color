@@ -1,94 +1,108 @@
 <template>
-<div class="card github-picker" :style="{width:width}">
-  <div class="triangle-shadow" :style="triangleShadowStyle"></div>
-  <div class="triangle" :style="triangleStyle"></div>
-  <GithubSwatch v-for="color in colors" :key="color" :color="color" @click="handleChange"/>
-</div>
+  <div class="picker github-picker"
+       :style="{width:styles.width}">
+    <div class="triangle-shadow" :style="styles.triangleShadow"></div>
+    <div class="triangle" :style="styles.triangle"></div>
+    <div class="github-swatches">
+      <GithubSwatch
+          :width="subWidth"
+          v-for="color in colors"
+          :key="color"
+          :color="color"
+          @change="change"/>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {computed, ComputedRef, CSSProperties, ref} from "vue";
 import GithubSwatch from "./GithubSwatch.vue";
-const props = defineProps({
-  width:{type:String,default:'200px'},
-  colors: {type:Array,default:['#B80000', '#DB3E00', '#FCCB00', '#008B02', '#006B76', '#1273DE', '#004DCF', '#5300EB',
-      '#EB9694', '#FAD0C3', '#FEF3BD', '#C1E1C5', '#BEDADC', '#C4DEF6', '#BED3F3', '#D4C4FB']},
-  triangle:{type:String,default: 'top-left'},
-  modelValue:{}
-})
+import {ColorInput} from "tinycolor2";
+import {ColorFormat, ColorObject} from "@/interface";
+import {convertColor, formatColor} from "@/utils/color";
 
-const triangleShadowStyle=computed(()=>{
-  if (props.triangle === 'hide'){
-    return {display:"none"}
-  }else if (props.triangle === 'top-left'){
-    return {top:'-16px',left:'9px'}
-  }else if (props.triangle === 'top-right'){
-    return {top:'-16px',left:'9px'}
-  }else if (props.triangle === 'bottom-left'){
-    return {
-      top: '37px',
-      left: '9px',
-      transform: 'rotate(180deg)',
-    }
-  }else if (props.triangle === 'bottom-right'){
-    return  {
-      top: '37px',
-      right: '9px',
-      transform: 'rotate(180deg)',
-    }
-  }
-})
-const triangleStyle=computed(()=>{
-  if (props.triangle === 'hide'){
-    return {display:"none"}
-  }else if (props.triangle === 'top-left'){
-    return {top:'-14px',left:'10px'}
-  }else if (props.triangle === 'top-right'){
-    return {top:'-14px',left:'10px'}
-  }else if (props.triangle === 'bottom-right'){
-    return {
-      top: '35px',
-      left: '10px',
-      transform: 'rotate(180deg)',
-    }
-  }else if (props.triangle === 'bottom-left'){
-    return {
-      top: '37px',
-      left: '9px',
-      transform: 'rotate(180deg)',
-    }
-  }
+
+interface GithubPropsType {
+  modelValue: ColorInput,
+  format?: ColorFormat,
+  width?: string,
+  subWidth?: string
+  colors?: Array<ColorInput>,
+  placement?: "hide" | "top-start" | "top-end"
+}
+
+const props = withDefaults(defineProps<GithubPropsType>(), {
+  width: '200px',
+  colors: () => ['#B80000', '#DB3E00', '#FCCB00', '#008B02', '#006B76',
+    '#1273DE', '#004DCF', '#5300EB', '#EB9694', '#FAD0C3',
+    '#FEF3BD', '#C1E1C5', '#BEDADC', '#C4DEF6', '#BED3F3', '#D4C4FB'],
+  format: 'rgb',
+  placement: 'top-start',
+  subWidth: '30px'
 })
 const emit = defineEmits(["update:modelValue"])
 
-const handleChange = (color,e) => {
-  emit("update:modelValue",color)
+
+const styles = computed(() => {
+  let triangleShadow: CSSProperties = {}, triangle: CSSProperties = {}
+  if (props.placement === 'hide') {
+    triangle = {display: 'none'}
+    triangleShadow = {display: 'none'}
+  }
+  if (props.placement.includes('top')) {
+    triangle = {...triangle, top: '-14px'}
+    triangleShadow = {...triangleShadow, top: '-16px'}
+  }
+  if (props.placement.includes('start')) {
+    triangle = {...triangle, left: '10px'}
+    triangleShadow = {...triangleShadow, left: '9px'}
+  }
+  if (props.placement.includes('end')) {
+    triangle = {...triangle, right: '10px'}
+    triangleShadow = {...triangleShadow, right: '9px'}
+  }
+  return {
+    width: `${Math.floor((parseInt(props.width) - 20) / parseInt(props.subWidth)) * parseInt(props.subWidth) + 20}px`,
+    triangleShadow,
+    triangle
+  }
+})
+
+const color: ComputedRef<ColorObject> = computed(() => {
+  return convertColor(props.modelValue)
+})
+
+const change = (data: ColorObject) => {
+  emit("update:modelValue", formatColor(data, props.format), data)
 }
 </script>
 
 <style scoped>
-.card{
+.github-picker {
   background: #ffffff;
-  border: 1px solid rgba(0,0,0,.2);
-  box-shadow: 0 3px 12px rgba(0,0,0,.15);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
   border-radius: 4px;
   position: relative;
-  padding: 9px;
-  display: flex;
-  flex-wrap: wrap;
+  padding: 10px;
   height: fit-content;
   box-sizing: border-box;
 }
-.triangle{
+
+.triangle {
   position: absolute;
   border: 7px solid transparent;
   border-bottom-color: #ffffff;
-
 }
-.triangle-shadow{
+
+.triangle-shadow {
   position: absolute;
   border: 8px solid transparent;
-  border-bottom-color: rgba(0,0,0,.15);
+  border-bottom-color: rgba(0, 0, 0, .15);
+}
+
+.github-swatches {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 </style>

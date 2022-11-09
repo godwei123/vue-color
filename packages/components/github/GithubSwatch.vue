@@ -1,30 +1,29 @@
 <template>
-<div class="swatch">
-  <Swatch :color="color" @click="onClick"/>
-</div>
+  <div class="github-swatch" :style="{width: width,height: width}">
+    <Swatch :color="color" @click="onClick"/>
+  </div>
 </template>
 
 <script setup lang="ts">
+import Swatch from "@/common/Swatch.vue";
+import {ColorInput} from "tinycolor2";
 
-import Swatch from "../../common/Swatch.vue";
-
-defineProps(['color'])
-const emit = defineEmits(['click'])
-const onClick = (color,e) => {
-  emit('click',color,e)
+const props = defineProps<{ color: ColorInput, width?: string }>()
+const emit = defineEmits(['change'])
+const onClick = (color: ColorInput) => {
+  emit('change', color)
 }
 </script>
 
 <style scoped>
-.swatch{
-  width: 30px;
-  height: 30px;
+.github-swatch {
   font-size: 0;
 }
-.swatch:hover{
+
+.github-swatch:hover {
   position: relative;
   z-index: 2;
   outline: 2px solid #fff;
-  box-shadow: 0 0 5px 2px rgba(0,0,0,0.25);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.25);
 }
 </style>
