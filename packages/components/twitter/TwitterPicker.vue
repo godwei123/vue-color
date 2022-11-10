@@ -10,7 +10,6 @@
              :key="index">
           <Swatch :color="item" @click="change"></Swatch>
         </div>
-        <!--        <EditableInput hash style="max-width: 135px;min-width: 100px" :color="color.hex" @change="change"/>-->
         <div style="display:flex;">
           <span class="hash" :style="{width:subWidth,height:subWidth}">#</span>
           <edit-input :value="color.hex" @change="change" :styles="inputStyles"/>

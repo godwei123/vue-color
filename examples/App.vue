@@ -6,6 +6,7 @@ import {Placement} from "../packages/interface";
 import CompactPicker from "../packages/components/compact/CompactPicker.vue";
 import MaterialPicker from "../packages/components/material/MaterialPicker.vue";
 import SwatchesPicker from "../packages/components/swatches/SwatchesPicker.vue";
+import CardPicker from "../packages/components/card/CardPicker.vue";
 
 
 const value = ref('#194d33')
@@ -36,7 +37,7 @@ const places: Array<Placement> = []
         <HuePicker round v-model="value" style="margin: 20px;"/>
       </div>
       <div>
-        <SwatchesPicker v-model="value"/>
+        <CardPicker v-model="value"/>
       </div>
     </div>
   </div>
