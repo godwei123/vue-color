@@ -17,8 +17,8 @@
 import {computed, ComputedRef} from "vue";
 import CircleSwatch from "./CircleSwatch.vue";
 import {ColorInput} from "tinycolor2";
-import {ColorFormat, ColorObject, Size} from "../../interface";
-import {convertColor, formatColor, colorEquals} from "../../utils/color";
+import {ColorFormat, ColorObject, Size} from "@/interface";
+import {convertColor, formatColor, colorEquals} from "@/utils/color";
 
 interface CirclePropsType {
   modelValue: ColorInput

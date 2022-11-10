@@ -28,15 +28,15 @@
 
 <script setup lang="ts">
 
-import Saturation from "../../common/Saturation.vue";
-import Checkboard from "../../common/Checkboard.vue";
-import Hue from "../../common/Hue.vue";
-import Alpha from "../../common/Alpha.vue";
+import Saturation from "@/common/Saturation.vue";
+import Checkboard from "@/common/Checkboard.vue";
+import Hue from "@/common/Hue.vue";
+import Alpha from "@/common/Alpha.vue";
 import ChromeFiled from "./ChromeFileds.vue";
 import {ColorInput} from "tinycolor2";
-import {ColorFormat, ColorObject} from "../../interface";
+import {ColorFormat, ColorObject} from "@/interface";
 import {computed, ComputedRef} from "vue";
-import {convertColor, formatColor} from "../../utils/color";
+import {convertColor, formatColor} from "@/utils/color";
 
 interface ChromePropsType {
   modelValue: ColorInput,

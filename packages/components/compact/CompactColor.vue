@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import Swatch from "../../common/Swatch.vue";
-import {getContrastingColor} from '../../utils/color'
+import Swatch from "@/common/Swatch.vue";
+import {getContrastingColor} from '@/utils/color'
 import {ColorInput} from "tinycolor2";
 
 defineProps(['color', 'active'])

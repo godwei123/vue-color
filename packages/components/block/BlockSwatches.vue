@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import Swatch from '../../common/Swatch.vue'
+import Swatch from '@/common/Swatch.vue'
 import {ColorInput} from "tinycolor2";
 
 interface BlockSwatchesPropsType {

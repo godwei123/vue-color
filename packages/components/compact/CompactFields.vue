@@ -13,9 +13,9 @@
 
 <script setup lang="ts">
 
-import EditableInput from "../../common/EditableInput.vue";
-import {ColorObject} from "../../interface";
-import {isValid, toHex} from "../../utils/color";
+import EditableInput from "@/common/EditableInput.vue";
+import {ColorObject} from "@/interface";
+import {isValid, toHex} from "@/utils/color";
 
 interface FieldsPropsType {
   color: ColorObject

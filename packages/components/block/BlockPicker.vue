@@ -17,13 +17,13 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, ComputedRef, computed} from "vue";
-import EditableInput from "../../common/EditableInput.vue"
+import {ComputedRef, computed} from "vue";
+import EditableInput from "@/common/EditableInput.vue"
 import BlockSwatches from "./BlockSwatches.vue"
-import Checkboard from "../../common/Checkboard.vue"
-import {ColorFormat, ColorObject, Size} from "../../interface";
+import Checkboard from "@/common/Checkboard.vue"
+import {ColorFormat, ColorObject, Size} from "@/interface";
 import {ColorInput} from "tinycolor2";
-import {convertColor, formatColor, getContrastingColor} from "../../utils/color";
+import {convertColor, formatColor, getContrastingColor} from "@/utils/color";
 
 interface BlockPropsType {
   modelValue: ColorInput

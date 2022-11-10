@@ -7,17 +7,16 @@
 </template>
 
 <script setup lang="ts">
-
-import Raised from "../../common/Raised.vue";
+import Raised from "@/common/Raised.vue";
 import SwatchesGroup from "./SwatchesGroup.vue";
-import {ref} from "vue";
+import {ColorInput} from "tinycolor2";
 
-defineProps({
-  colors: {
-    type: Array,
-    default: [[]]
-  }
-})
+interface SwatchesPropsType {
+  colors: Array<Array<ColorInput>>
+}
+
+const props = withDefaults(defineProps<SwatchesPropsType>(), {})
+
 </script>
 
 <style scoped>

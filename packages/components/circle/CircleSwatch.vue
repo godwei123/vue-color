@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import Swatch from "../../common/Swatch.vue";
+import Swatch from "@/common/Swatch.vue";
 import {computed} from "vue";
 import {ColorInput} from "tinycolor2";
 

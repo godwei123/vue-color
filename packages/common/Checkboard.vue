@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, computed} from "vue";
-import {get} from "../utils/checkboard"
+import {computed} from "vue";
+import {get} from "@/utils/checkboard"
 
 const props = defineProps({
   size: {type: Number, default: 8},

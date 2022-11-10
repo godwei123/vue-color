@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, defineEmits, computed, CSSProperties} from "vue";
+import {CSSProperties} from "vue";
 
 interface EditInputPropsType {
   placeholder?: string,

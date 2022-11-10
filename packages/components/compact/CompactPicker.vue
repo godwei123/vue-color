@@ -15,13 +15,14 @@
 </template>
 
 <script setup lang="ts">
-import Raised from "../../common/Raised.vue";
+import Raised from "@/common/Raised.vue";
 import CompactColor from "./CompactColor.vue";
 import {ColorInput} from "tinycolor2";
-import {ColorFormat, ColorObject} from "../../interface";
+import {ColorFormat, ColorObject} from "@/interface";
 import {computed, ComputedRef} from "vue";
-import {convertColor, formatColor, colorEquals} from "../../utils/color";
+import {convertColor, formatColor, colorEquals} from "@/utils/color";
 import CompactFields from "./CompactFields.vue";
+
 
 interface CompactPropsType {
   modelValue: ColorInput
