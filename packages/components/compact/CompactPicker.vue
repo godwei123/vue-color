@@ -1,15 +1,15 @@
 <template>
   <Raised style="height: fit-content;">
-    <div class="compact compact-picker">
+    <div class="compact compact-picker" :style="{width:width}">
       <div class="compact-color-wrap">
         <CompactColor
-            v-for="c in colors"
-            :key="c"
-            :color="c"
-            :active="colorEquals(color,c)"
-            @click="change"/>
+            v-for="item in colors"
+            :key="item"
+            :color="item"
+            :active="colorEquals(color,item)"
+            @change="change"/>
       </div>
-      <CompactFields :color="color" @click="change"/>
+      <CompactFields :color="color" @change="change"/>
     </div>
   </Raised>
 </template>
@@ -28,10 +28,12 @@ interface CompactPropsType {
   modelValue: ColorInput
   format?: ColorFormat,
   colors?: Array<ColorInput>,
+  width?: string
 }
 
 const props = withDefaults(defineProps<CompactPropsType>(), {
   format: 'rgb',
+  width: '240px',
   colors: () => ['#4D4D4D', '#999999', '#FFFFFF', '#F44E3B', '#FE9200', '#FCDC00',
     '#DBDF00', '#A4DD00', '#68CCCA', '#73D8FF', '#AEA1FF', '#FDA1FF',
     '#333333', '#808080', '#cccccc', '#D33115', '#E27300', '#FCC400',
@@ -41,6 +43,7 @@ const props = withDefaults(defineProps<CompactPropsType>(), {
   ]
 })
 const emit = defineEmits(['update:modelValue'])
+
 const color: ComputedRef<ColorObject> = computed(() => {
   return convertColor(props.modelValue)
 })
@@ -52,9 +55,8 @@ const change = (data: ColorObject | string) => {
 
 <style scoped>
 .compact {
-  padding: 10px 10px 0;
+  padding: 10px;
   box-sizing: inherit;
-  width: 240px;
   height: fit-content;
 }
 
@@ -64,5 +66,6 @@ const change = (data: ColorObject | string) => {
   justify-content: space-between;
   align-items: center;
   gap: 5px;
+  padding-bottom: 5px;
 }
 </style>

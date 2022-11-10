@@ -79,8 +79,6 @@ const styles = computed(() => {
 })
 
 const inputStyles: ComputedRef<{ wrap?: CSSProperties, input?: CSSProperties, label?: CSSProperties }> = computed(() => {
-
-
   return {
     input: {
       width: '76px',

@@ -6,8 +6,7 @@
         :key="item"
         :color="item"
         :active="colorEquals(color,item)"
-        :circle-size="size"
-        :circle-spacing="circleSpacing"
+        :circle-size="circleSize"
         @click="change"/>
 
   </div>
@@ -17,7 +16,7 @@
 import {computed, ComputedRef} from "vue";
 import CircleSwatch from "./CircleSwatch.vue";
 import {ColorInput} from "tinycolor2";
-import {ColorFormat, ColorObject, Size} from "@/interface";
+import {ColorFormat, ColorObject} from "@/interface";
 import {convertColor, formatColor, colorEquals} from "@/utils/color";
 
 interface CirclePropsType {
@@ -25,38 +24,22 @@ interface CirclePropsType {
   format?: ColorFormat,
   colors?: Array<ColorInput>,
   width?: string,
-  circleSize?: "mini" | "small" | "default" | "middle" | "large" | number,
-  circleSpacing?: number,
+  circleSize?: number,
 }
 
 const props = withDefaults(defineProps<CirclePropsType>(), {
-  width: "256px",
+  width: "252px",
   format: 'rgb',
-  circleSize: "default",
-  circleSpacing: 14,
-  colors: () => ['#B80000', '#DB3E00', '#FCCB00', '#008B02', '#006B76', '#1273DE', '#004DCF', '#5300EB',
-    '#EB9694', '#FAD0C3', '#FEF3BD', '#C1E1C5', '#BEDADC', '#C4DEF6', '#BED3F3', '#D4C4FB']
+  circleSize: 28,
+  colors: () => ["#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4", "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107", "#ff9800", "#ff5722", "#795548", "#607d8b"]
 })
 
 const emit = defineEmits(['update:modelValue'])
-const sizeEnum = {
-  "mini": 20,
-  "small": 24,
-  "default": 28,
-  "middle": 30,
-  "large": 32
-}
-const size = computed(() => {
-  if (typeof props.circleSize === 'string') {
-    return sizeEnum[props.circleSize as Size]
-  }
-  return props.circleSize
-})
 
 const styles = computed(() => {
   return {
     width: props.width,
-    "grid-template-columns": `repeat(auto-fill,${size.value}px)`,
+    "grid-template-columns": `repeat(auto-fill,${props.circleSize}px)`,
   }
 })
 

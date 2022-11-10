@@ -19,7 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import {CSSProperties, onUnmounted} from "vue";
+import {CSSProperties, onUnmounted, ref} from "vue";
+import {uid} from "@/utils/uid";
 
 const DEFAULT_ARROW_OFFSET = 1
 
@@ -39,11 +40,14 @@ interface EditInputPropsType {
   placeholder?: string
   dragLabel?: boolean
   dragMax?: number
-  arrowOffset?: number
+  arrowOffset?: number,
+  pack?: boolean
 }
 
 const props = withDefaults(defineProps<EditInputPropsType>(), {
   dragMax: 255,
+  pack: false,
+  dragLabel: false,
   styles: () => ({
     wrap: {},
     input: {},
@@ -51,7 +55,7 @@ const props = withDefaults(defineProps<EditInputPropsType>(), {
   })
 })
 
-const inputId = `edit-input-${new Date().getTime()}`
+const inputId = `edit-input-${uid()}`
 
 const emit = defineEmits(['change'])
 
@@ -60,7 +64,7 @@ const handleDrag = (e: any) => {
     // TODO 数字输入合法
     const newValue = Math.round(props.value + e.movementX)
     if (newValue >= 0 && newValue <= props.dragMax) {
-      emit('change', newValue, e)
+      emit('change', getValueObjectWithLabel(newValue), e)
     }
   }
 }
@@ -83,8 +87,14 @@ const unbindEventListeners = () => {
 }
 const getNumberValue = (value: any) => Number(String(value).replace(/%/g, ''))
 
+const getValueObjectWithLabel = (value: any) => {
+  return props.pack && props.label ? {
+    [props.label]: value
+  } : value
+}
+
 const setUpdatedValue = (value: unknown, e: any) => {
-  emit('change', value, e)
+  emit('change', getValueObjectWithLabel(value), e)
 }
 const getArrowOffset = () => {
   return props.arrowOffset || DEFAULT_ARROW_OFFSET
@@ -114,5 +124,6 @@ onUnmounted(() => {
 <style scoped>
 .edit-input-wrap {
   position: relative;
+
 }
 </style>

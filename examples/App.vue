@@ -2,9 +2,10 @@
 import {ref, watch} from "vue";
 import AlphaPicker from "../packages/components/alpha/AlphaPicker.vue";
 import HuePicker from "../packages/components/hue/HuePicker.vue";
-import GithubPicker from "../packages/components/github/GithubPicker.vue";
 import {Placement} from "../packages/interface";
-import TwitterPicker from "../packages/components/twitter/TwitterPicker.vue";
+import CompactPicker from "../packages/components/compact/CompactPicker.vue";
+import MaterialPicker from "../packages/components/material/MaterialPicker.vue";
+import SwatchesPicker from "../packages/components/swatches/SwatchesPicker.vue";
 
 
 const value = ref('#194d33')
@@ -35,7 +36,7 @@ const places: Array<Placement> = []
         <HuePicker round v-model="value" style="margin: 20px;"/>
       </div>
       <div>
-        <GithubPicker width="270px" v-model="value" style="margin: 20px;"/>
+        <SwatchesPicker v-model="value"/>
       </div>
     </div>
   </div>

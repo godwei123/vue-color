@@ -10,10 +10,15 @@ import Swatch from "@/common/Swatch.vue";
 import {getContrastingColor} from '@/utils/color'
 import {ColorInput} from "tinycolor2";
 
-defineProps(['color', 'active'])
-const emit = defineEmits(['click'])
+interface CompactColorPropsType {
+  color: ColorInput,
+  active: boolean
+}
+
+withDefaults(defineProps<CompactColorPropsType>(), {})
+const emit = defineEmits(['change'])
 const onClick = (color: ColorInput) => {
-  emit('click', color);
+  emit('change', color);
 }
 </script>
 

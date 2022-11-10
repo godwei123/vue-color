@@ -1,68 +1,76 @@
 <template>
   <div class="picker block-picker" :style="{width:styles.width}">
-    <div v-if="triangle==='top'" class="triangle" :style="{borderColor:styles.borderColor}"></div>
-    <div style="position: relative">
+    <div v-if="placement==='top'" class="triangle" :style="{borderColor:styles.borderColor}"></div>
+    <div style="position: relative;overflow: hidden">
       <Checkboard v-if="alpha" style="border-radius: 6px 6px 0 0"/>
       <div class="head" :style="{background:color.origin}">
         <div class="label" :style="{color:styles.contrastingColor}">
-          {{ color.hexString }}
+          {{ color.hexString.toUpperCase() }}
         </div>
       </div>
     </div>
     <div class="body">
       <BlockSwatches :colors="colors" @change="change"/>
-      <EditableInput radius="4px" style="height: 24px;" :color="color.hexString" @change="change"/>
+      <edit-input :styles="inputStyles" :value="color.hexString" @change="change"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {ComputedRef, computed} from "vue";
-import EditableInput from "@/common/EditableInput.vue"
+import {ComputedRef, computed, CSSProperties} from "vue";
 import BlockSwatches from "./BlockSwatches.vue"
 import Checkboard from "@/common/Checkboard.vue"
 import {ColorFormat, ColorObject, Size} from "@/interface";
 import {ColorInput} from "tinycolor2";
 import {convertColor, formatColor, getContrastingColor} from "@/utils/color";
+import EditInput from "@/common/EditInput.vue";
 
 interface BlockPropsType {
   modelValue: ColorInput
   format?: ColorFormat,
   colors?: Array<ColorInput>,
-  triangle?: string,
+  placement?: 'hide' | 'top',
   alpha?: boolean,
-  size: Size | 'full',
   width?: string
 }
 
 const props = withDefaults(defineProps<BlockPropsType>(), {
   colors: () => ['#D9E3F0', '#F47373', '#697689', '#37D67A', '#2CCCE4', '#555555',
     '#dce775', '#ff8a65', '#ba68c8'],
-  triangle: 'top',
+  placement: 'top',
   format: 'rgb',
-  size: 'default',
   alpha: false,
+  width: "190px"
 })
 
-const sizeEnum = {
-  'mini': '180px',
-  'small': '220px',
-  'default': '260px',
-  'middle': '300px',
-  'large': '340px',
-  'full': "100%"
-}
 const styles = computed(() => {
+  let size = parseInt(props.width)
   return {
-    width: props.width ? props.width : sizeEnum[props.size],
+    width: props.width ? props.width : size,
     borderColor: `transparent transparent ${color.value.hexString} transparent`,
     contrastingColor: `${getContrastingColor(color.value)}`
   }
 
 })
 
+const inputStyles: ComputedRef<{ wrap?: CSSProperties, input?: CSSProperties, label?: CSSProperties }> = computed(() => {
+  return {
+    input: {
+      width: '100%',
+      fontSize: '16px',
+      color: '#666',
+      border: '0px',
+      outline: 'none',
+      height: '24px',
+      boxShadow: 'inset 0 0 0 1px #ddd',
+      borderRadius: '4px',
+      padding: '0 8px',
+      boxSizing: 'border-box',
+      "font-family": 'inherit'
+    }
+  }
+})
 const emit = defineEmits(['update:modelValue'])
-
 
 const color: ComputedRef<ColorObject> = computed(() => {
   return convertColor(props.modelValue)

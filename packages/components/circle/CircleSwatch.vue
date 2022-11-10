@@ -1,6 +1,6 @@
 <template>
-  <div class="swatch" :style="swatchStyle">
-    <Swatch class="swatch-item" :style="styles" @click="onClick" :color="color" :active="active"/>
+  <div class="circle-swatch" :style="swatchStyle">
+    <Swatch :style="styles" @click="onClick" :color="color"/>
   </div>
 </template>
 
@@ -11,7 +11,6 @@ import {ColorInput} from "tinycolor2";
 
 interface CircleSwatchPropsType {
   circleSize: number,
-  circleSpacing: number,
   color: ColorInput,
   active: boolean,
 }
@@ -29,6 +28,7 @@ const swatchStyle = computed(() => {
 })
 const styles = computed(() => {
   return {
+    borderRadius: '50%',
     background: 'transparent',
     boxShadow: !props.active ?
         `inset 0 0 0 ${(props.circleSize / 2) + 1}px ${props.color}` :
@@ -41,14 +41,14 @@ const onClick = (color: ColorInput) => {
 </script>
 
 <style scoped>
-.swatch-item {
+.circle-swatch {
   border-radius: 50%;
   background: transparent;
   transition: 100ms box-shadow ease;
   overflow: hidden;
 }
 
-.swatch:hover {
+.circle-swatch:hover {
   transform: scale(1.2)
 }
 </style>

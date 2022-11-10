@@ -7,6 +7,7 @@
 - CompactPicker
 - CirclePicker
 - ChromePicker
+- CardPicker
 - FigmaPicker
 - GithubPicker
 - HuePicker
