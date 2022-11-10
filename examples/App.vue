@@ -35,7 +35,7 @@ const places: Array<Placement> = []
         <HuePicker round v-model="value" style="margin: 20px;"/>
       </div>
       <div>
-        <TwitterPicker width="200px" v-model="value" style="margin: 20px;"/>
+        <GithubPicker width="270px" v-model="value" style="margin: 20px;"/>
       </div>
     </div>
   </div>

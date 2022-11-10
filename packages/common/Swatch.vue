@@ -1,5 +1,6 @@
 <template>
-  <div class="swatch">
+  <div class="swatch" tabindex="-1" @focus="handleFocus" @blur="handleBlur"
+       :style="[focus ? focusStyle : '']">
     <Checkboard class="swatch-checkboard" v-if="alpha"></Checkboard>
     <div class="swatch" :style="styles" @click="handleClick">
       <slot></slot>
@@ -9,20 +10,34 @@
 
 <script setup lang="ts">
 import Checkboard from './Checkboard.vue'
-import {computed} from "vue";
+import {computed, CSSProperties, ref} from "vue";
 import {ColorInput} from "tinycolor2";
 
 interface SwatchPropsType {
   color: ColorInput,
   active?: boolean,
-  alpha?: boolean
+  alpha?: boolean,
+  focusStyle?: CSSProperties
 }
+
 
 const props = withDefaults(defineProps<SwatchPropsType>(), {
   active: false,
   alpha: false
 })
 const emits = defineEmits(['click'])
+
+const focus = ref(false)
+
+const handleFocus = () => {
+  console.log('focus')
+  focus.value = true
+}
+const handleBlur = () => {
+  console.log('blur')
+  focus.value = false
+}
+
 const handleClick = (e: Event) => emits('click', props.color, e)
 const styles = computed(() => {
   return props.active ? '' : {
