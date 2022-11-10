@@ -22,7 +22,7 @@
 import HexInput from "./HexInput.vue";
 import WInput from "./WInput.vue";
 
-const handleChange = (e) => {
+const handleChange = (e: Event) => {
 
 }
 </script>

@@ -2,7 +2,7 @@
   <div class="swatches-group" :style="{flexDirection:direction==='horizontal'?'row':'column'}">
     <SwatchesColor
         v-for="c in colors"
-        :key="c"
+        :key="c+''"
         :active="colorEquals(color,c)"
         :color="c"
     />

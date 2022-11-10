@@ -3,8 +3,8 @@
     <div class="compact compact-picker" :style="{width:width}">
       <div class="compact-color-wrap">
         <CompactColor
-            v-for="item in colors"
-            :key="item"
+            v-for="(item,index) in colors"
+            :key="index"
             :color="item"
             :active="colorEquals(color,item)"
             @change="change"/>

@@ -3,7 +3,7 @@
     <CircleSwatch
         class="circle-swatch"
         v-for="item in colors"
-        :key="item"
+        :key="item+''"
         :color="item"
         :active="colorEquals(color,item)"
         :circle-size="circleSize"

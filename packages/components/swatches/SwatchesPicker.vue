@@ -2,7 +2,7 @@
   <Raised>
     <div class="picker swatches-picker overflow" :style="{width:styles.w,height:styles.h}">
       <div class="body">
-        <SwatchesGroup :direction="direction" v-for="item in colors" :key="item" :colors="item" :color="color"/>
+        <SwatchesGroup :direction="direction" v-for="item in colors" :key="item+''" :colors="item" :color="color"/>
       </div>
     </div>
   </Raised>

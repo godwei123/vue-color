@@ -3,7 +3,7 @@
     <div v-if="placement==='top'" class="triangle" :style="{borderColor:styles.borderColor}"></div>
     <div style="position: relative;overflow: hidden">
       <Checkboard v-if="alpha" style="border-radius: 6px 6px 0 0"/>
-      <div class="head" :style="{background:color.origin}">
+      <div class="head" :style="styles.head">
         <div class="label" :style="{color:styles.contrastingColor}">
           {{ color.hexString.toUpperCase() }}
         </div>
@@ -48,7 +48,8 @@ const styles = computed(() => {
   return {
     width: props.width ? props.width : size,
     borderColor: `transparent transparent ${color.value.hexString} transparent`,
-    contrastingColor: `${getContrastingColor(color.value)}`
+    contrastingColor: `${getContrastingColor(color.value)}`,
+    head: {background: color.value.hexString}
   }
 
 })

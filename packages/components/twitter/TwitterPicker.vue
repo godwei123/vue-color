@@ -6,8 +6,8 @@
       <div class="twitter-swatches">
         <div class="twitter-swatch"
              :style="{width:subWidth,height:subWidth}"
-             v-for="item in colors"
-             :key="item">
+             v-for="(item,index) in colors"
+             :key="index">
           <Swatch :color="item" @click="change"></Swatch>
         </div>
         <!--        <EditableInput hash style="max-width: 135px;min-width: 100px" :color="color.hex" @change="change"/>-->

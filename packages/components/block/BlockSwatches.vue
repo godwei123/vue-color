@@ -1,7 +1,7 @@
 <template>
   <div class="block-swatches">
     <Swatch v-for="color in colors"
-            :key="color"
+            :key="color+''"
             :color="color"
             class="block-swatch"
             @click="onClick"

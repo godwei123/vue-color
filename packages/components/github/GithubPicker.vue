@@ -6,8 +6,8 @@
     <div class="github-swatches">
       <GithubSwatch
           :width="subWidth"
-          v-for="color in colors"
-          :key="color"
+          v-for="(color,index) in colors"
+          :key="index"
           :color="color"
           @change="change"/>
     </div>
