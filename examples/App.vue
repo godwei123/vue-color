@@ -3,8 +3,8 @@ import {ref, watch} from "vue";
 import AlphaPicker from "../packages/components/alpha/AlphaPicker.vue";
 import HuePicker from "../packages/components/hue/HuePicker.vue";
 import {Placement} from "../packages/interface";
-import SwatchesPicker from "../packages/components/swatches/SwatchesPicker.vue";
-import CardPicker from "../packages/components/card/CardPicker.vue";
+import ChromePicker from "../packages/components/chrome/ChromePicker.vue";
+import SketchPicker from "../packages/components/sketch/SketchPicker.vue";
 
 
 const value = ref('#194d33')
@@ -25,6 +25,7 @@ const places: Array<Placement> = []
 
   <div class="box"
        style="display:flex;min-height: 100vh;justify-content: center;align-items: center;flex-direction: column;">
+    {{ value }}
     <div :style="{width: '100px',height: '100px',background:value,marginBottom:'50px'}"></div>
 
     <div style="display:flex;flex-wrap: wrap;flex-direction: column">
@@ -35,10 +36,7 @@ const places: Array<Placement> = []
         <HuePicker round v-model="value" style="margin: 20px;"/>
       </div>
       <div>
-        <SwatchesPicker v-model="value" style="margin: 20px;"/>
-      </div>
-      <div>
-        <CardPicker v-model="value" style="margin: 20px;"/>
+        <ChromePicker v-model="value" style="margin: 20px;"/>
       </div>
     </div>
   </div>

@@ -14,14 +14,18 @@
         </div>
         <div class="toggles">
           <div class="hue">
-            <Hue :color="color"/>
+            <Hue :color="color" @change="hueChange">
+              <Pointer class="hue-pointer" :styles="styles.huePointer"></Pointer>
+            </Hue>
           </div>
           <div class="alpha">
-            <Alpha :color="color"/>
+            <Alpha :color="color" @change="alphaChange">
+              <Pointer class="alpha-pointer" :styles="styles.alphaPointer"></Pointer>
+            </Alpha>
           </div>
         </div>
       </div>
-      <ChromeFiled :color="color"/>
+      <ChromeFiled :color="color" @change="change"/>
     </div>
   </div>
 </template>
@@ -37,6 +41,7 @@ import {ColorInput} from "tinycolor2";
 import {ColorFormat, ColorObject} from "@/interface";
 import {computed, ComputedRef} from "vue";
 import {convertColor, formatColor} from "@/utils/color";
+import Pointer from "@/common/Pointer.vue";
 
 interface ChromePropsType {
   modelValue: ColorInput,
@@ -49,6 +54,25 @@ const props = withDefaults(defineProps<ChromePropsType>(), {
   width: '250px'
 })
 const emit = defineEmits(['update:modelValue'])
+
+const styles = computed(() => {
+  return {
+    alphaPointer: {
+      left: `${color.value.rgb.a * 100}%`,
+    },
+    huePointer: {
+      left: `${(color.value.hsl.h * 100) / 360}%`,
+    }
+  }
+})
+
+const hueChange = (color: ColorObject) => {
+  change(color)
+}
+
+const alphaChange = (color: ColorObject) => {
+  change(color)
+}
 
 const color: ComputedRef<ColorObject> = computed(() => {
   return convertColor(props.modelValue)
@@ -63,22 +87,18 @@ const change = (data: ColorObject) => {
 <style scoped>
 .picker {
   background: #fff;
-  border-radius: 2px;
   box-shadow: 0 0 2px rgba(0, 0, 0, .3), 0 4px 8px rgba(0, 0, 0, .3);
-  box-sizing: initial;
-  font-family: "IBM Plex Mono", 'Menlo', monospace, sans-serif;
 }
 
 .chrome-saturation {
   width: 100%;
   padding: 30% 0;
   position: relative;
-  border-radius: 2px 2px 0 0;
   overflow: hidden;
 }
 
 .body {
-  padding: 16px 16px 12px;
+  padding: 12px;
 
 }
 
@@ -88,23 +108,22 @@ const change = (data: ColorObject) => {
 
 .color {
   width: 32px;
+  display: flex;
+  align-items: center;
 }
 
 .swatch {
-  margin-top: 6px;
-  width: 16px;
-  height: 16px;
-  border-radius: 8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
   position: relative;
   overflow: hidden;
 }
 
 .active {
-
-  border-radius: 8px;
+  border-radius: 50%;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1);
   z-index: 2;
-
 }
 
 .toggles {
@@ -115,6 +134,13 @@ const change = (data: ColorObject) => {
   height: 10px;
   position: relative;
   margin-bottom: 8px;
+}
+
+.hue-pointer, .alpha-pointer {
+  width: 12px;
+  height: 12px;
+  transform: translate(-6px, -1px);
+  transition: left linear .1s
 }
 
 .alpha {

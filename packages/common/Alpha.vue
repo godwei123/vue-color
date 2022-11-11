@@ -92,7 +92,7 @@ const unbindEventListeners = () => {
 .container {
   position: relative;
   height: 100%;
-  margin: 0 3px;
+  padding: 0 3px;
 }
 
 </style>
