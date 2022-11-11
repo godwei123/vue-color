@@ -1,5 +1,5 @@
 <template>
-  <div class="hue" :style="{borderRadius:radius}">
+  <div class="position-absolute" :style="{borderRadius:radius}">
     <div
         :class="['hue-container',`hue-${direction}`]"
         ref="container"
@@ -57,14 +57,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.hue {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-}
 
 .hue-container {
   padding: 0 2px;

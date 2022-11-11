@@ -8,7 +8,6 @@
         :active="colorEquals(color,item)"
         :circle-size="circleSize"
         @click="change"/>
-
   </div>
 </template>
 

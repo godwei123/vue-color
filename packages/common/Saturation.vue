@@ -1,14 +1,14 @@
 <template>
   <div
-      class="saturation"
+      class="position-absolute"
       ref="container"
       :style="{background: `hsl(${ color.hsl.h },100%, 50%)`}"
       @mousedown="handleMouseDown"
       @touchmove="handleChange"
       @touchstart="handleChange"
   >
-    <div class="white saturation-white">
-      <div class="black saturation-black"></div>
+    <div class="position-absolute saturation-white">
+      <div class="position-absolute saturation-black"></div>
       <div class="pointer"
            :style="{top: `${ -(color.hsv.v * 100) + 100 }%`,left: `${ color.hsv.s * 100 }%`}">
         <div class="pointer-circle"></div>
@@ -69,13 +69,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.saturation, .white, .black {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
+
 
 .saturation-white {
   background: -webkit-linear-gradient(to right, #fff, rgba(255, 255, 255, 0));

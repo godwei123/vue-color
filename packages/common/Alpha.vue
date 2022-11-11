@@ -1,9 +1,9 @@
 <template>
-  <div class="alpha" :style="alphaStyles">
-    <div class="check-board-wrap" :style="alphaStyles">
+  <div class="position-absolute" :style="alphaStyles">
+    <div class="check-board-wrap position-absolute" :style="alphaStyles">
       <Checkboard/>
     </div>
-    <div class="gradient" :style="gradientStyles"/>
+    <div class="position-absolute" :style="gradientStyles"/>
     <div
         class="container"
         ref="container"
@@ -82,20 +82,10 @@ const unbindEventListeners = () => {
 </script>
 
 <style scoped>
-.alpha, .gradient {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
+
 
 .check-board-wrap {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+
   overflow: hidden;
 }
 

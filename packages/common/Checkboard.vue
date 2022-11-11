@@ -1,5 +1,5 @@
 <template>
-  <div class="checker-board" :style="styles"></div>
+  <div class="position-absolute" :style="styles"></div>
 </template>
 
 <script setup lang="ts">
@@ -19,11 +19,5 @@ const styles = computed(() => {
 </script>
 
 <style scoped>
-.checker-board {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
+
 </style>

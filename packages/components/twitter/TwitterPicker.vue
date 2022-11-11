@@ -22,7 +22,6 @@
 
 <script setup lang="ts">
 import {computed, ComputedRef, CSSProperties} from "vue";
-import EditableInput from "@/common/EditableInput.vue"
 import Swatch from "@/common/Swatch.vue";
 import {ColorInput} from "tinycolor2";
 import {ColorFormat, ColorObject, Size} from "@/interface";

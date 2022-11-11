@@ -22,7 +22,7 @@ import {ColorInput} from 'tinycolor2';
 import {computed, ComputedRef, CSSProperties} from 'vue';
 import {ColorFormat, ColorObject, Direction} from '@/interface';
 import {convertColor, formatColor} from '@/utils/color';
-import {lightColors} from "@/components/swatches/colors";
+import {lightColors} from "@/assets/colors";
 
 interface SwatchesPropsType {
   modelValue: ColorInput;

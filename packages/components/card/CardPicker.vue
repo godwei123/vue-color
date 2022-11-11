@@ -19,7 +19,7 @@ import {ColorInput} from "tinycolor2";
 import {computed, ComputedRef} from "vue";
 import {ColorFormat, ColorObject} from "@/interface";
 import {convertColor, formatColor} from "@/utils/color";
-import {darkColors} from "@/components/swatches/colors";
+import {darkColors} from "@/assets/colors";
 
 interface CardPropsType {
   modelValue: ColorInput,

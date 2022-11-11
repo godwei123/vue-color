@@ -2,20 +2,20 @@
 
 移除了自定义pointer的功能
 
-- AlphaPicker
-- BlockPicker
-- CompactPicker
-- CirclePicker
+- AlphaPicker √
+- BlockPicker √
+- CompactPicker √
+- CirclePicker √
 - ChromePicker
-- CardPicker
+- CardPicker √
 - FigmaPicker
-- GithubPicker
-- HuePicker
-- MaterialPicker
+- GithubPicker √
+- HuePicker √
+- MaterialPicker √
 - PhotoshopPicker
 - SketchPicker
-- SwatchesPicker
-- TwitterPicker
+- SwatchesPicker √
+- TwitterPicker √
 
 TODO
 
