@@ -1,6 +1,6 @@
 <template>
   <div class="card-color">
-    <CardColor v-for="c in colors" :key="c" :color="c"/>
+    <CardColor v-for="c in colors" :key="c" :color="c" @change="change"/>
   </div>
 </template>
 
@@ -15,8 +15,12 @@ interface ColorGroupPropsType {
 }
 
 const props = withDefaults(defineProps<ColorGroupPropsType>(), {})
+const emit = defineEmits(['change'])
 
 
+const change = (color: ColorInput) => {
+  emit('change', color)
+}
 </script>
 
 <style scoped>

@@ -1,10 +1,12 @@
 <template>
   <div class="swatches-group" :style="{flexDirection:direction==='horizontal'?'row':'column'}">
     <SwatchesColor
-        v-for="c in colors"
-        :key="c+''"
+        v-for="(c,index) in colors"
+        :key="index"
         :active="colorEquals(color,c)"
         :color="c"
+        :direction='direction'
+        @change="change"
     />
   </div>
 </template>
@@ -22,6 +24,11 @@ interface SwatchesGroupPropsType {
 }
 
 withDefaults(defineProps<SwatchesGroupPropsType>(), {})
+const emit = defineEmits(['change'])
+
+const change = (color: ColorInput) => {
+  emit('change', color)
+}
 </script>
 
 <style scoped>

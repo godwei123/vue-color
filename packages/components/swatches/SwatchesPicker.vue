@@ -1,13 +1,14 @@
 <template>
   <Raised>
-    <div class="picker swatches-picker overflow" :style="{ width: styles.w, height: styles.h }">
+    <div class="picker swatches-picker overflow" :style="{ width: width, height: height }">
       <div class="body">
         <SwatchesGroup
             :direction="direction"
-            v-for="item in colors"
-            :key="item + ''"
+            v-for="(item,index) in colors"
+            :key="index"
             :colors="item"
             :color="color"
+            @change="change"
         />
       </div>
     </div>
@@ -21,6 +22,7 @@ import {ColorInput} from 'tinycolor2';
 import {computed, ComputedRef, CSSProperties} from 'vue';
 import {ColorFormat, ColorObject, Direction} from '@/interface';
 import {convertColor, formatColor} from '@/utils/color';
+import {lightColors} from "@/components/swatches/colors";
 
 interface SwatchesPropsType {
   modelValue: ColorInput;
@@ -32,406 +34,17 @@ interface SwatchesPropsType {
 }
 
 const props = withDefaults(defineProps<SwatchesPropsType>(), {
-  width: '320px',
+  width: '428px',
   height: '240px',
   format: 'rgb',
   direction: 'vertical',
-  colors: () => [
-    [
-      '#FEF2ED',
-      '#FEDDD2',
-      '#FDB7A5',
-      '#FB9078',
-      '#FA664C',
-      '#F93920',
-      '#D52515',
-      '#B2140C',
-      '#8E0805',
-      '#6A0103',
-    ],
-    [
-      '#FDECEF',
-      '#FDECEF',
-      '#F6A0B5',
-      '#F27396',
-      '#ED487B', '#E91E63',
-      '#C51356',
-      '#A20B48',
-      '#7E053A',
-      '#5A012B',
-    ],
-    [
-      '#F7E9F7',
-      '#EFCAF0',
-      '#DD9BE0',
-      '#C96FD1',
-      '#B449C2',
-      '#9E28B3',
-      '#871E9E',
-      '#71168A',
-      '#5C0F75',
-      '#490A61',
-    ],
-    [
-      '#F3EDF9',
-      '#E2D1F4',
-      '#C4A7E9',
-      '#A67FDD',
-      '#885BD2',
-      '#6A3AC7',
-      '#572FB3',
-      '#46259E',
-      '#361C8A',
-      '#281475',
-    ],
-    [
-      '#ECEFF8',
-      '#D1D8F0',
-      '#A7B3E1',
-      '#8090D3',
-      '#5E6FC4',
-      '#3F51B5',
-      '#3342A1',
-      '#28348C',
-      '#1F2878',
-      '#171D63',
-    ],
-    [
-      '#EAF5FF',
-      '#CBE7FE',
-      '#98CDFD',
-      '#65B2FC',
-      '#3295FB',
-      '#0077FA',
-      '#0062D6',
-      '#004FB3',
-      '#003D8F',
-      '#002C6B',
-    ],
-    [
-      '#E9F7FD',
-      '#C9ECFC',
-      '#95D8F8',
-      '#62C3F5',
-      '#30ACF1',
-      '#0095EE',
-      '#007BCA',
-      '#0063A7',
-      '#004B83',
-      '#00355F',
-    ],
-    [
-      '#E5F7F8',
-      '#C2EFF0',
-      '#8ADDE2',
-      '#58CBD3',
-      '#2CB8C5',
-      '#05A4B6',
-      '#038698',
-      '#016979',
-      '#004D5B',
-      '#00323D',
-    ],
-    [
-      '#E4F7F4',
-      '#C0F0E8',
-      '#87E0D3',
-      '#54D1C1',
-      '#27C2B0',
-      '#00B3A1',
-      '#009589',
-      '#00776F',
-      '#005955',
-      '#003C3A',
-    ],
-    [
-      '#ECF7EC',
-      '#D0F0D1',
-      '#A4E0A7',
-      '#7DD182',
-      '#5AC262',
-      '#3BB346',
-      '#30953B',
-      '#25772F',
-      '#1B5924',
-      '#113C18',
-    ],
-    [
-      '#F3F8EC',
-      '#E3F0D0',
-      '#C8E2A5',
-      '#ADD37E',
-      '#93C55B',
-      '#7BB63C',
-      '#649830',
-      '#4E7926',
-      '#395B1B',
-      '#253D12',
-    ],
-    [
-      '#F2FAE6',
-      '#E3F6C5',
-      '#CBED8E',
-      '#B7E35B',
-      '#A7DA2C',
-      '#9BD100',
-      '#7EAE00',
-      '#638B00',
-      '#486800',
-      '#2F4600',
-    ],
-    [
-      '#FFFDEA',
-      '#FEFBCB',
-      '#FDF398',
-      '#FCE865',
-      '#FBDA32',
-      '#FAC800',
-      '#D0AA00',
-      '#A78B00',
-      '#7D6A00',
-      '#534800',
-    ],
-    [
-      '#FEFBEB',
-      '#FCF5CE',
-      '#F9E89E',
-      '#F6D86F',
-      '#F3C641',
-      '#F0B114',
-      '#C88A0F',
-      '#A0660A',
-      '#784606',
-      '#502B03',
-    ],
-    [
-      '#FFF8EA',
-      '#FEEECC',
-      '#FED998',
-      '#FDC165',
-      '#FDA633',
-      '#FC8800',
-      '#D26700',
-      '#A84A00',
-      '#7E3100',
-      '#541D00',
-    ],
-    [
-      '#F9F9F9',
-      '#E6E8EA',
-      '#C6CACD',
-      '#A7ABB0',
-      '#888D92',
-      '#6B7075',
-      '#555B61',
-      '#41464C',
-      '#2E3238',
-      '#1C1F23',
-    ],
-    [
-      '#6C090B',
-      '#901110',
-      '#B42019',
-      '#D73324',
-      '#FB4932',
-      '#FC725A',
-      '#FD9983',
-      '#FDBEAC',
-      '#FEE0D5',
-      '#FFF3EF',
-    ],
-    [
-      '#5C0730',
-      '#800E41',
-      '#A41751',
-      '#C72261',
-      '#EB2F71',
-      '#EF5686',
-      '#F37E9F',
-      '#F7A8BC',
-      '#FBD3DC',
-      '#FDEEF1',
-    ],
-    [
-      '#4A1061',
-      '#5E1776',
-      '#731F8A',
-      '#89289F',
-      '#A033B3',
-      '#B553C2',
-      '#CA78D1',
-      '#DDA0E1',
-      '#EFCEF0',
-      '#F7EBF7',
-    ],
-    [
-      '#401B77',
-      '#4C248C',
-      '#582EA0',
-      '#6439B5',
-      '#7246C9',
-      '#8865D4',
-      '#A288DF',
-      '#BEADE9',
-      '#DDD4F4',
-      '#F1EEFA',
-    ],
-    [
-      '#171E65',
-      '#20297A',
-      '#29368E',
-      '#3444A3',
-      '#4053B7',
-      '#5F71C5',
-      '#8191D4',
-      '#A7B4E2',
-      '#D1D8F1',
-      '#EDEFF8',
-    ],
-    [
-      '#053170',
-      '#0A4694',
-      '#135CB8',
-      '#1D75DB',
-      '#2990FF',
-      '#54A9FF',
-      '#7FC1FF',
-      '#A9D7FF',
-      '#D4ECFF',
-      '#EFF8FF',
-    ],
-    [
-      '#003761',
-      '#004D85',
-      '#0366A9',
-      '#0A81CC',
-      '#139FF0',
-      '#40B4F3',
-      '#6EC8F6',
-      '#9DDCF9',
-      '#CEEEFC',
-      '#EBF8FE',
-    ],
-    [
-      '#04343D',
-      '#074F5C',
-      '#0A6C7B',
-      '#0E8999',
-      '#13A8B8',
-      '#38BBC6',
-      '#62CDD4',
-      '#91DFE3',
-      '#C6EFF1',
-      '#E7F7F8',
-    ],
-    [
-      '#023C39',
-      '#045A55',
-      '#07776F',
-      '#0A9588',
-      '#0EB3A1',
-      '#33C2B0',
-      '#5ED1C1',
-      '#8EE1D3',
-      '#C4F0E8',
-      '#E6F7F4',
-    ],
-    [
-      '#123C19',
-      '#1C5A25',
-      '#277731',
-      '#32953D',
-      '#3EB349',
-      '#5DC264',
-      '#7FD184',
-      '#A6E1A8',
-      '#D0F0D1',
-      '#ECF7EC',
-    ],
-    [
-      '#263D13',
-      '#3B5C1D',
-      '#517B28',
-      '#679934',
-      '#7FB840',
-      '#97C65F',
-      '#B0D481',
-      '#C9E3A7',
-      '#E4F1D1',
-      '#F3F8ED',
-    ],
-    [
-      '#314603',
-      '#4B6905',
-      '#678D09',
-      '#84B00C',
-      '#A2D311',
-      '#AEDC3A',
-      '#BDE566',
-      '#CFED96',
-      '#E5F6C9',
-      '#F3FBE9',
-    ],
-    [
-      '#544903',
-      '#7E6C06',
-      '#A88E0A',
-      '#D2AF0F',
-      '#FCCE14',
-      '#FDDE43',
-      '#FDEB71',
-      '#FEF5A0',
-      '#FEFBD0',
-      '#FFFEEC',
-    ],
-    [
-      '#512E09',
-      '#794B0F',
-      '#A16B16',
-      '#CA8F1E',
-      '#F2B726',
-      '#F5CA50',
-      '#F7DB7A',
-      '#FAEAA6',
-      '#FCF6D2',
-      '#FEFBED',
-    ],
-    [
-      '#551F03',
-      '#803506',
-      '#AA500A',
-      '#D56F0F',
-      '#FF9214',
-      '#FFAE43',
-      '#FFC772',
-      '#FFDDA1',
-      '#FFEFD0',
-      '#FFF9ED',
-    ],
-    [
-      '#1C1F23',
-      '#2E3238',
-      '#41464C',
-      '#555B61',
-      '#6B7075',
-      '#888D92',
-      '#A7ABB0',
-      '#C6CACD',
-      '#E6E8EA',
-      '#F9F9F9',
-    ],
-  ],
+  colors: () => lightColors
 });
 
 const emit = defineEmits(['update:modelValue']);
 
 const styles = computed(() => {
-  let w = props.width,
-      h = props.height;
-  return {
-    w,
-    h,
-  };
+  return {};
 });
 
 const color: ComputedRef<ColorObject> = computed(() => {
@@ -444,14 +57,19 @@ const change = (data: ColorObject | string) => {
 </script>
 
 <style scoped>
+.swatches-picker {
+  box-sizing: border-box;
+}
+
 .overflow {
   overflow: scroll;
+
 }
 
 .body {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 12px;
   padding: 10px;
 }
 </style>

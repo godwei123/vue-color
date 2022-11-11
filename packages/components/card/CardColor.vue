@@ -4,7 +4,7 @@
        @mouseenter="handleMouseEnter"
        @click="handleCopy"
   >
-    <Swatch :color="color">
+    <Swatch :color="color" @click="onClick">
       <div class="card-box" :style="{color:contrastingColor}">
         <div class="title">{{ color }}</div>
         <div v-show="show" class="value">{{ `${valueObj.rgb.r},${valueObj.rgb.g},${valueObj.rgb.b}` }}</div>
@@ -20,6 +20,7 @@ import {computed, ref} from "vue";
 import {convertColor, getContrastingColor} from "@/utils/color";
 
 const props = withDefaults(defineProps<{ color: ColorInput }>(), {})
+const emit = defineEmits(['change'])
 const show = ref(false)
 const handleMouseEnter = () => {
   show.value = true
@@ -32,6 +33,10 @@ const handleCopy = async () => {
 }
 const contrastingColor = computed(() => getContrastingColor(props.color))
 const valueObj = computed(() => convertColor(props.color))
+
+const onClick = (color: ColorInput) => {
+  emit('change', color)
+}
 
 </script>
 
@@ -63,10 +68,10 @@ const valueObj = computed(() => convertColor(props.color))
 
 .title {
   font-size: 14px;
-  font-weight: bold;
 }
 
 .value {
+  font-weight: lighter;
   font-size: 8px;
   user-select: none;
 }

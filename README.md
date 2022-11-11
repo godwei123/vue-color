@@ -13,7 +13,6 @@
 - HuePicker
 - MaterialPicker
 - PhotoshopPicker
-- SliderPicker
 - SketchPicker
 - SwatchesPicker
 - TwitterPicker

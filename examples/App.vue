@@ -37,7 +37,11 @@ const places: Array<Placement> = []
         <HuePicker round v-model="value" style="margin: 20px;"/>
       </div>
       <div>
-        <CardPicker v-model="value"/>
+        <SwatchesPicker v-model="value" style="margin: 20px;"/>
+      </div>
+      <div>
+        <CardPicker v-model="value" style="margin: 20px;"/>
+
       </div>
     </div>
   </div>
