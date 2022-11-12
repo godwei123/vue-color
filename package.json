@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@types/tinycolor2": "^1.4.3",
-    "lodash": "^4.17.21",
     "tinycolor2": "^1.4.2",
     "vite-plugin-dts": "^1.6.6",
     "vite-plugin-eslint": "^1.8.1",

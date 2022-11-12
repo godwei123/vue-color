@@ -20,9 +20,9 @@
 
 <script setup lang="ts">
 import {onUnmounted, ref} from "vue";
-import {ColorObject} from "../interface";
-import {throttle} from "lodash";
-import {calculateChange} from "../utils/saturation";
+import {ColorObject} from "@/interface";
+import {calculateChange} from "@/utils/saturation";
+import {useThrottle} from "@/hooks/useThrottle";
 
 interface SaturationPropsType {
   color: ColorObject
@@ -33,19 +33,16 @@ const emit = defineEmits(['click'])
 const container = ref()
 
 const handleMouseDown = (e: Event) => {
-  handleChange(e)
+  run(e)
   const renderWindow = getContainerRenderWindow()
 
   renderWindow.addEventListener('mousemove', handleChange)
   renderWindow.addEventListener('mouseup', handleMouseUp)
 }
-
 const handleChange = (e: Event) => {
-  throttle(() => {
-        emit('click', calculateChange(e, props.color.hsl, container.value))
-      }, 100
-  )()
+  emit('click', calculateChange(e, props.color.hsl, container.value))
 }
+const {run, cancel} = useThrottle(handleChange, 100)
 const getContainerRenderWindow = () => {
   let renderWindow: any = window
   while (!renderWindow.document.contains(container.value) && renderWindow.parent !== renderWindow) {
