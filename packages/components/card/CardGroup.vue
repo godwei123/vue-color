@@ -1,6 +1,6 @@
 <template>
   <div class="card-color">
-    <CardColor v-for="c in colors" :key="c" :color="c" @change="change"/>
+    <CardColor v-for="(c,index) in colors" :key="index" :color="c" @change="change"/>
   </div>
 </template>
 

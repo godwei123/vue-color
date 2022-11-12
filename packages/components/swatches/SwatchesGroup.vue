@@ -20,7 +20,7 @@ import {colorEquals} from "@/utils/color";
 interface SwatchesGroupPropsType {
   colors: Array<ColorInput>
   color: ColorObject,
-  direction?: Direction
+  direction: Direction
 }
 
 withDefaults(defineProps<SwatchesGroupPropsType>(), {})
