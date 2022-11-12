@@ -8,6 +8,7 @@
         @keydown="handleKeyDown"
         @change="handleChange"
         @blur="handleBlur"
+        :readonly="readonly"
     >
     <label
         :for="inputId"
@@ -41,12 +42,14 @@ interface EditInputPropsType {
   dragLabel?: boolean
   dragMax?: number
   arrowOffset?: number,
-  pack?: boolean
+  pack?: boolean,
+  readonly?: boolean
 }
 
 const props = withDefaults(defineProps<EditInputPropsType>(), {
   dragMax: 255,
   pack: false,
+  readonly: false,
   dragLabel: false,
   styles: () => ({
     wrap: {},

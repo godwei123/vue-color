@@ -11,7 +11,7 @@
       <div class="position-absolute saturation-black"></div>
       <div class="pointer"
            :style="{top: `${ -(color.hsv.v * 100) + 100 }%`,left: `${ color.hsv.s * 100 }%`}">
-        <div class="pointer-circle"></div>
+        <div class="pointer-circle" :style="{background: color.hexString}"></div>
       </div>
     </div>
 
@@ -91,8 +91,7 @@ onUnmounted(() => {
 .pointer-circle {
   width: 8px;
   height: 8px;
-  box-shadow: 0 0 0 2px #fff, inset 0 0 1px 1px rgba(0, 0, 0, .3),
-  0 0 1px 2px rgba(0, 0, 0, .4);
+  box-shadow: 0 0 0 2px #fff;
   border-radius: 50%;
   cursor: default;
   transform: translate(-4px, -4px);

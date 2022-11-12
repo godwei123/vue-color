@@ -6,18 +6,20 @@
 - BlockPicker √
 - CompactPicker √
 - CirclePicker √
-- ChromePicker
+- ChromePicker √
 - CardPicker √
 - FigmaPicker
 - GithubPicker √
 - HuePicker √
 - MaterialPicker √
 - PhotoshopPicker
-- SketchPicker
+- SketchPicker √
 - SwatchesPicker √
 - TwitterPicker √
 
 TODO
+
+- 节流
 
 v-model深层怎么处理最好
 

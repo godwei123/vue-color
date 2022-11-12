@@ -5,6 +5,8 @@ import HuePicker from "../packages/components/hue/HuePicker.vue";
 import {Placement} from "../packages/interface";
 import ChromePicker from "../packages/components/chrome/ChromePicker.vue";
 import SketchPicker from "../packages/components/sketch/SketchPicker.vue";
+import FigmaPicker from "../packages/components/figma/FigmaPicker.vue";
+import PhotoshopPicker from "../packages/components/photoshop/PhotoshopPicker.vue";
 
 
 const value = ref('#194d33')
@@ -36,7 +38,7 @@ const places: Array<Placement> = []
         <HuePicker round v-model="value" style="margin: 20px;"/>
       </div>
       <div>
-        <ChromePicker v-model="value" style="margin: 20px;"/>
+        <PhotoshopPicker v-model="value" style="margin: 20px;"/>
       </div>
     </div>
   </div>
