@@ -1,14 +1,14 @@
 {
-  "name": "vue-color",
+  "name": "vue3-color-picker",
   "files": [
     "dist"
   ],
-  "main": "./dist/vue-color.umd.js",
-  "module": "./dist/vue-color.es.js",
+  "main": "./dist/vue3-color-picker.umd.js",
+  "module": "./dist/vue3-color-picker.es.js",
   "exports": {
     ".": {
-      "import": "./dist/vue-color.es.js",
-      "require": "./dist/vue-color.umd.js"
+      "import": "./dist/vue3-color-picker.es.js",
+      "require": "./dist/vue3-color-picker.umd.js"
     }
   },
   "private": false,

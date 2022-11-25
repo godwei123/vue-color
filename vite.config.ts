@@ -11,8 +11,8 @@ export default defineConfig({
         outDir: 'dist',
         lib: {
             entry: resolve(__dirname, 'packages/index.ts'),
-            name: 'VueColor',
-            fileName: (format) => `vue-color.${format}.js`,
+            name: 'vue3-color-picker',
+            fileName: (format) => `vue3-color-picker.${format}.js`,
         },
         cssCodeSplit: false,
         rollupOptions: {
