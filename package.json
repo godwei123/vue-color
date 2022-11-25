@@ -4,8 +4,13 @@
     "dist"
   ],
   "license": "MIT",
-  "main": "./dist/color-picker-vue3.umd.js",
-  "module": "./dist/color-picker-vue3.es.js",
+  "description": "vue3 color-picker",
+  "keywords": [
+    "vue3",
+    "color-picker"
+  ],
+  "main": "dist/color-picker-vue3.umd.js",
+  "module": "dist/color-picker-vue3.es.js",
   "exports": {
     ".": {
       "import": "./dist/color-picker-vue3.es.js",
@@ -13,7 +18,7 @@
     }
   },
   "private": false,
-  "version": "0.0.1-alpha",
+  "version": "0.0.2-alpha",
   "type": "module",
   "scripts": {
     "dev": "vite",
