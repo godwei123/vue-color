@@ -12,6 +12,7 @@ import SketchPicker from "./components/sketch/SketchPicker.vue"
 import SwatchesPicker from "./components/swatches/SwatchesPicker.vue"
 import TwitterPicker from "./components/twitter/TwitterPicker.vue"
 import {App} from "vue";
+import "./assets/global.less"
 
 const components = [
     AlphaPicker,
