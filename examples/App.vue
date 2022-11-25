@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import {ref, watch} from "vue";
+import AlphaPicker from "../packages/components/alpha/AlphaPicker.vue";
+import HuePicker from "../packages/components/hue/HuePicker.vue";
+import {Placement} from "../packages/interface";
+import PhotoshopPicker from "../packages/components/photoshop/PhotoshopPicker.vue";
+
 
 const value = ref('#194d33')
 const colors = ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3',
@@ -10,6 +15,8 @@ watch(value, () => {
 })
 
 const num = ref(200)
+
+const places: Array<Placement> = []
 
 </script>
 
@@ -22,9 +29,14 @@ const num = ref(200)
 
     <div style="display:flex;flex-wrap: wrap;flex-direction: column">
       <div>
-        <!--        <A round v-model="value" style="margin: 20px;"/>-->
+        <AlphaPicker round v-model="value" style="margin: 20px;"/>
       </div>
-
+      <div>
+        <HuePicker round v-model="value" style="margin: 20px;"/>
+      </div>
+      <div>
+        <PhotoshopPicker v-model="value" style="margin: 20px;"/>
+      </div>
     </div>
   </div>
 </template>
