@@ -11,7 +11,7 @@
       "require": "./dist/vue-color.umd.js"
     }
   },
-  "private": true,
+  "private": false,
   "version": "0.0.1-alpha",
   "type": "module",
   "scripts": {
