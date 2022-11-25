@@ -1,5 +1,5 @@
 {
-  "name": "color-picker-vue3",
+  "name": "@godwei/vue-color-picker",
   "files": [
     "dist"
   ],
