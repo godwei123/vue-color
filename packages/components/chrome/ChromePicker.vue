@@ -42,6 +42,11 @@ import {ColorFormat, ColorObject} from "@/interface";
 import {computed, ComputedRef} from "vue";
 import {convertColor, formatColor} from "@/utils/color";
 import Pointer from "@/common/Pointer.vue";
+import {defineOptions} from "unplugin-vue-define-options/macros";
+
+defineOptions({
+  name: 'ChromePicker'
+})
 
 interface ChromePropsType {
   modelValue: ColorInput,

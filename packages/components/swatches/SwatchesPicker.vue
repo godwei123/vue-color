@@ -23,6 +23,11 @@ import {computed, ComputedRef, CSSProperties} from 'vue';
 import {ColorFormat, ColorObject, Direction} from '@/interface';
 import {convertColor, formatColor} from '@/utils/color';
 import {lightColors} from "@/assets/colors";
+import {defineOptions} from "unplugin-vue-define-options/macros";
+
+defineOptions({
+  name: 'SwatchesPicker'
+})
 
 interface SwatchesPropsType {
   modelValue: ColorInput;

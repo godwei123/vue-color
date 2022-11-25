@@ -24,6 +24,11 @@ import {ColorFormat, ColorObject, Size} from "@/interface";
 import {ColorInput} from "tinycolor2";
 import {convertColor, formatColor, getContrastingColor} from "@/utils/color";
 import EditInput from "@/common/EditInput.vue";
+import {defineOptions} from "unplugin-vue-define-options/macros";
+
+defineOptions({
+  name: "BlockPicker"
+})
 
 interface BlockPropsType {
   modelValue: ColorInput

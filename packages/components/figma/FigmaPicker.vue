@@ -47,6 +47,11 @@ import {computed, ComputedRef} from "vue";
 import {convertColor, formatColor} from "@/utils/color";
 import FigmaColor from './FigmaColor.vue'
 import FigmaFiled from './FigmaFiled.vue'
+import {defineOptions} from "unplugin-vue-define-options/macros";
+
+defineOptions({
+  name: 'FigmaPicker'
+})
 
 interface FigmaPropsType {
   modelValue: ColorInput,

@@ -22,7 +22,11 @@ import {ColorFormat, ColorObject} from "@/interface";
 import {computed, ComputedRef} from "vue";
 import {convertColor, formatColor, colorEquals} from "@/utils/color";
 import CompactFields from "./CompactFields.vue";
+import {defineOptions} from "unplugin-vue-define-options/macros";
 
+defineOptions({
+  name: 'CompactPicker'
+})
 
 interface CompactPropsType {
   modelValue: ColorInput

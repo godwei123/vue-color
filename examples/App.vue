@@ -1,13 +1,5 @@
 <script setup lang="ts">
 import {ref, watch} from "vue";
-import AlphaPicker from "../packages/components/alpha/AlphaPicker.vue";
-import HuePicker from "../packages/components/hue/HuePicker.vue";
-import {Placement} from "../packages/interface";
-import ChromePicker from "../packages/components/chrome/ChromePicker.vue";
-import SketchPicker from "../packages/components/sketch/SketchPicker.vue";
-import FigmaPicker from "../packages/components/figma/FigmaPicker.vue";
-import PhotoshopPicker from "../packages/components/photoshop/PhotoshopPicker.vue";
-
 
 const value = ref('#194d33')
 const colors = ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3',
@@ -18,8 +10,6 @@ watch(value, () => {
 })
 
 const num = ref(200)
-
-const places: Array<Placement> = []
 
 </script>
 
@@ -32,14 +22,9 @@ const places: Array<Placement> = []
 
     <div style="display:flex;flex-wrap: wrap;flex-direction: column">
       <div>
-        <AlphaPicker round v-model="value" style="margin: 20px;"/>
+        <!--        <A round v-model="value" style="margin: 20px;"/>-->
       </div>
-      <div>
-        <HuePicker round v-model="value" style="margin: 20px;"/>
-      </div>
-      <div>
-        <PhotoshopPicker v-model="value" style="margin: 20px;"/>
-      </div>
+
     </div>
   </div>
 </template>

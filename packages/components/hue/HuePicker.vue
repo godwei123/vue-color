@@ -20,6 +20,11 @@ import {ColorFormat, ColorObject, Direction} from "@/interface";
 import {convertColor, formatColor} from "@/utils/color";
 import Pointer from "@/common/Pointer.vue";
 import Hue from "@/common/Hue.vue"
+import {defineOptions} from "unplugin-vue-define-options/macros";
+
+defineOptions({
+  name: 'HuePicker'
+})
 
 interface HuePropsType {
   modelValue: ColorInput,

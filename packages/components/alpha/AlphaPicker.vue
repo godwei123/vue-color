@@ -14,12 +14,18 @@
 </template>
 
 <script setup lang="ts">
+
 import {computed, ComputedRef} from "vue";
 import {ColorInput} from "tinycolor2";
 import Alpha from "@/common/Alpha.vue"
 import Pointer from "@/common/Pointer.vue";
 import {ColorFormat, ColorObject, Direction, Size} from "@/interface";
 import {convertColor, formatColor} from "@/utils/color";
+import {defineOptions} from "unplugin-vue-define-options/macros";
+
+defineOptions({
+  name: "AlphaPicker"
+})
 
 interface AlphaPropsType {
   modelValue: ColorInput,

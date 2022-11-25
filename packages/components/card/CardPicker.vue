@@ -20,6 +20,11 @@ import {computed, ComputedRef} from "vue";
 import {ColorFormat, ColorObject} from "@/interface";
 import {convertColor, formatColor} from "@/utils/color";
 import {darkColors} from "@/assets/colors";
+import {defineOptions} from "unplugin-vue-define-options/macros";
+
+defineOptions({
+  name: 'CardPicker'
+})
 
 interface CardPropsType {
   modelValue: ColorInput,

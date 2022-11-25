@@ -24,6 +24,11 @@ import {computed, ComputedRef, CSSProperties} from "vue";
 import {ColorFormat, ColorObject} from "@/interface";
 import {convertColor, formatColor} from "@/utils/color";
 import {ColorInput} from "tinycolor2";
+import {defineOptions} from "unplugin-vue-define-options/macros";
+
+defineOptions({
+  name: 'MaterialPicker'
+})
 
 interface MaterialPropsType {
   modelValue: ColorInput

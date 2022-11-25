@@ -47,6 +47,11 @@ import {ColorFormat, ColorObject} from "@/interface";
 import {computed, ComputedRef} from "vue";
 import {convertColor, formatColor} from "@/utils/color";
 import SketchColor from "@/components/sketch/SketchColor.vue";
+import {defineOptions} from "unplugin-vue-define-options/macros";
+
+defineOptions({
+  name: 'SketchPicker'
+})
 
 interface SketchPropsType {
   modelValue: ColorInput,

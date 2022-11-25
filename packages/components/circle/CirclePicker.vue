@@ -17,6 +17,11 @@ import CircleSwatch from "./CircleSwatch.vue";
 import {ColorInput} from "tinycolor2";
 import {ColorFormat, ColorObject} from "@/interface";
 import {convertColor, formatColor, colorEquals} from "@/utils/color";
+import {defineOptions} from "unplugin-vue-define-options/macros";
+
+defineOptions({
+  name: 'CirclePicker'
+})
 
 interface CirclePropsType {
   modelValue: ColorInput
